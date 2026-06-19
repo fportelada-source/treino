@@ -7,18 +7,9 @@
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --bg: #0a0a0f;
-    --surface: #12121a;
-    --surface2: #1a1a26;
-    --border: #2a2a3d;
-    --accent: #f0b429;
-    --accent2: #e05c2a;
-    --green: #22c55e;
-    --blue: #3b82f6;
-    --red: #ef4444;
-    --text: #f0f0f8;
-    --muted: #888899;
-    --card-radius: 14px;
+    --bg: #0a0a0f; --surface: #12121a; --surface2: #1a1a26; --border: #2a2a3d;
+    --accent: #f0b429; --accent2: #e05c2a; --green: #22c55e; --blue: #3b82f6;
+    --red: #ef4444; --text: #f0f0f8; --muted: #888899; --r: 14px;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; min-height: 100vh; overflow-x: hidden; }
@@ -27,9 +18,8 @@
   .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
   .logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 22px; letter-spacing: 1px; text-transform: uppercase; }
   .logo span { color: var(--accent); }
-  .profile-badge { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--muted); }
-  .profile-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
-
+  .badge { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
   .tab-nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
   .tab-nav::-webkit-scrollbar { display: none; }
   .tab-btn { flex-shrink: 0; padding: 10px 16px 14px; background: none; border: none; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
@@ -39,119 +29,121 @@
   .content { padding: 20px 16px 100px; max-width: 600px; margin: 0 auto; }
   .tab-content { display: none; }
   .tab-content.active { display: block; animation: fadeIn 0.25s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
 
   .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 32px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; line-height: 1; }
-  .section-subtitle { font-size: 13px; color: var(--muted); margin-bottom: 20px; font-weight: 500; }
+  .section-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; font-weight: 500; }
   .accent { color: var(--accent); }
 
-  .rule-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 16px; margin-bottom: 12px; }
-  .rule-card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; }
-  .rule-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; line-height: 1.5; }
-  .rule-item:last-child { border-bottom: none; }
-  .rule-icon { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
-  .rule-icon.yellow { background: rgba(240,180,41,0.15); color: var(--accent); }
-  .rule-icon.green { background: rgba(34,197,94,0.15); color: var(--green); }
-  .rule-icon.blue { background: rgba(59,130,246,0.15); color: var(--blue); }
-  .rule-icon.orange { background: rgba(224,92,42,0.15); color: var(--accent2); }
-  .rule-text { color: var(--muted); line-height: 1.6; }
-  .rule-text strong { color: var(--text); font-weight: 600; }
+  /* CARDS */
+  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 16px; margin-bottom: 12px; }
+  .card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; }
+  .row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
+  .row:last-child { border-bottom: none; }
+  .icon-box { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
+  .y { background: rgba(240,180,41,.15); color: var(--accent); }
+  .g { background: rgba(34,197,94,.15); color: var(--green); }
+  .b { background: rgba(59,130,246,.15); color: var(--blue); }
+  .o { background: rgba(224,92,42,.15); color: var(--accent2); }
+  .row-text { color: var(--muted); line-height: 1.6; }
+  .row-text strong { color: var(--text); font-weight: 600; }
 
-  .cardio-banner { background: linear-gradient(135deg, rgba(240,180,41,0.12), rgba(224,92,42,0.08)); border: 1px solid rgba(240,180,41,0.3); border-radius: var(--card-radius); padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
-  .cardio-banner .icon { font-size: 28px; flex-shrink: 0; }
-  .cardio-banner .info h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); }
-  .cardio-banner .info p { font-size: 13px; color: var(--muted); margin-top: 2px; }
-  .cardio-pill { margin-left: auto; background: rgba(240,180,41,0.15); border: 1px solid rgba(240,180,41,0.3); border-radius: 999px; padding: 4px 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
+  /* BANNER */
+  .banner { background: linear-gradient(135deg, rgba(240,180,41,.12), rgba(224,92,42,.08)); border: 1px solid rgba(240,180,41,.3); border-radius: var(--r); padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
+  .banner .bi { font-size: 28px; flex-shrink: 0; }
+  .banner h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); }
+  .banner p { font-size: 13px; color: var(--muted); margin-top: 2px; }
+  .pill { margin-left: auto; background: rgba(240,180,41,.15); border: 1px solid rgba(240,180,41,.3); border-radius: 999px; padding: 4px 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
 
-  /* EXERCISE CARD */
-  .exercise-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius); margin-bottom: 10px; overflow: hidden; transition: border-color 0.2s; }
-  .exercise-card:hover { border-color: rgba(240,180,41,0.4); }
-  .exercise-header { display: flex; align-items: center; padding: 14px 16px; cursor: pointer; gap: 12px; user-select: none; }
+  /* EXERCISE */
+  .ex-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 10px; overflow: hidden; transition: border-color .2s; }
+  .ex-card:hover { border-color: rgba(240,180,41,.4); }
+  .ex-head { display: flex; align-items: center; padding: 14px 16px; cursor: pointer; gap: 12px; user-select: none; }
   .ex-num { width: 28px; height: 28px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; color: var(--accent); flex-shrink: 0; }
   .ex-info { flex: 1; min-width: 0; }
-  .ex-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; text-transform: uppercase; letter-spacing: 0.3px; line-height: 1.2; }
+  .ex-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; text-transform: uppercase; letter-spacing: .3px; line-height: 1.2; }
   .ex-tags { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
-  .tag { font-size: 11px; font-weight: 600; border-radius: 4px; padding: 2px 7px; text-transform: uppercase; letter-spacing: 0.3px; }
-  .tag-series { background: rgba(59,130,246,0.15); color: var(--blue); }
-  .tag-reps { background: rgba(34,197,94,0.15); color: var(--green); }
-  .ex-arrow { font-size: 18px; color: var(--muted); transition: transform 0.25s; flex-shrink: 0; }
-  .exercise-card.open .ex-arrow { transform: rotate(90deg); color: var(--accent); }
+  .tag { font-size: 11px; font-weight: 600; border-radius: 4px; padding: 2px 7px; text-transform: uppercase; letter-spacing: .3px; }
+  .ts { background: rgba(59,130,246,.15); color: var(--blue); }
+  .tr { background: rgba(34,197,94,.15); color: var(--green); }
+  .ex-arr { font-size: 18px; color: var(--muted); transition: transform .25s; flex-shrink: 0; }
+  .ex-card.open .ex-arr { transform: rotate(90deg); color: var(--accent); }
+  .ex-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
+  .ex-card.open .ex-body { display: block; }
 
-  .exercise-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
-  .exercise-card.open .exercise-body { display: block; }
+  /* WEIGHT GRID */
+  .wgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
+  .wbox { background: var(--surface2); border-radius: 10px; padding: 10px 12px; border: 1px solid var(--border); }
+  .wbox .wl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 4px; }
+  .wbox .wv { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; color: var(--text); line-height: 1; }
+  .wbox.ideal { border-color: rgba(240,180,41,.3); }
+  .wbox.ideal .wv { color: var(--accent); }
 
-  .weight-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-  .weight-box { background: var(--surface2); border-radius: 10px; padding: 10px 12px; border: 1px solid var(--border); }
-  .weight-box .label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 4px; }
-  .weight-box .value { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; color: var(--text); line-height: 1; }
-  .weight-box.ideal { border-color: rgba(240,180,41,0.3); }
-  .weight-box.ideal .value { color: var(--accent); }
+  /* NOTES */
+  .notes { margin-top: 10px; background: rgba(59,130,246,.06); border: 1px solid rgba(59,130,246,.2); border-radius: 8px; padding: 10px 12px; }
+  .notes .nt { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--blue); margin-bottom: 6px; }
+  .notes ul { list-style: none; }
+  .notes li { font-size: 13px; color: #aabbd0; padding: 2px 0; display: flex; gap: 6px; line-height: 1.5; }
+  .notes li::before { content: '→'; color: var(--blue); flex-shrink: 0; }
 
-  .notes-block { margin-top: 10px; background: rgba(59,130,246,0.06); border: 1px solid rgba(59,130,246,0.2); border-radius: 8px; padding: 10px 12px; }
-  .notes-block .notes-title { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--blue); margin-bottom: 6px; }
-  .notes-block ul { list-style: none; padding: 0; }
-  .notes-block li { font-size: 13px; color: #aabbd0; padding: 2px 0; display: flex; align-items: flex-start; gap: 6px; line-height: 1.5; }
-  .notes-block li::before { content: '→'; color: var(--blue); flex-shrink: 0; margin-top: 1px; }
+  /* GIF SECTION */
+  .gif-btn { display: flex; align-items: center; gap: 10px; margin-top: 12px; background: rgba(240,180,41,.07); border: 1px solid rgba(240,180,41,.25); border-radius: 10px; padding: 10px 14px; cursor: pointer; transition: background .2s; width: 100%; text-align: left; }
+  .gif-btn:hover { background: rgba(240,180,41,.14); }
+  .gif-btn .gi { font-size: 18px; flex-shrink: 0; }
+  .gif-btn .gt { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); }
+  .gif-btn .gs { font-size: 11px; color: var(--muted); }
+  .gif-btn .ga { margin-left: auto; font-size: 14px; color: var(--muted); transition: transform .25s; flex-shrink: 0; }
+  .gif-btn.open .ga { transform: rotate(180deg); }
 
-  /* VIDEO */
-  .video-btn { display: flex; align-items: center; gap: 8px; margin-top: 12px; background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3); border-radius: 10px; padding: 10px 14px; cursor: pointer; transition: background 0.2s; width: 100%; }
-  .video-btn:hover { background: rgba(239,68,68,0.18); }
-  .video-btn .vb-icon { font-size: 20px; flex-shrink: 0; }
-  .video-btn .vb-text { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: #ff6b6b; }
-  .video-btn .vb-sub { font-size: 11px; color: var(--muted); }
-  .video-btn .vb-arrow { margin-left: auto; font-size: 14px; color: var(--muted); transition: transform 0.25s; flex-shrink: 0; }
-  .video-btn.open .vb-arrow { transform: rotate(180deg); }
+  .gif-wrap { display: none; margin-top: 10px; border-radius: 10px; overflow: hidden; background: var(--surface2); border: 1px solid var(--border); }
+  .gif-wrap.open { display: block; }
+  .gif-wrap img { width: 100%; display: block; border-radius: 10px; }
+  .gif-wrap .gif-credit { font-size: 10px; color: var(--muted); padding: 4px 10px 6px; text-align: center; }
 
-  .video-wrapper { display: none; margin-top: 10px; border-radius: 10px; overflow: hidden; position: relative; padding-bottom: 56.25%; height: 0; }
-  .video-wrapper.open { display: block; }
-  .video-wrapper iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+  /* CARDIO */
+  .cardio-sec { background: linear-gradient(135deg, rgba(34,197,94,.08), rgba(59,130,246,.05)); border: 1px solid rgba(34,197,94,.2); border-radius: var(--r); padding: 16px; margin-top: 20px; }
+  .cardio-sec h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--green); margin-bottom: 8px; }
+  .cardio-sec p { font-size: 14px; color: var(--muted); }
 
-  .cardio-section { background: linear-gradient(135deg, rgba(34,197,94,0.08), rgba(59,130,246,0.05)); border: 1px solid rgba(34,197,94,0.2); border-radius: var(--card-radius); padding: 16px; margin-top: 20px; }
-  .cardio-section h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--green); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
-  .cardio-detail { display: flex; align-items: center; gap: 10px; font-size: 14px; color: var(--text); padding: 6px 0; }
-  .cardio-detail span { color: var(--muted); }
+  /* OVERVIEW */
+  .ogrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
+  .ocard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
+  .ocard .ol { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 6px; }
+  .ocard .ov { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 26px; line-height: 1; }
+  .ocard .os { font-size: 12px; color: var(--muted); margin-top: 3px; }
 
-  .overview-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-  .overview-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 14px; }
-  .overview-card .ov-label { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; color: var(--muted); margin-bottom: 6px; }
-  .overview-card .ov-value { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 26px; line-height: 1; }
-  .overview-card .ov-sub { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .wk-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 20px; }
+  .day { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px; text-transform: uppercase; gap: 2px; }
+  .day .de { font-size: 16px; }
+  .day.train { background: rgba(240,180,41,.12); border: 1px solid rgba(240,180,41,.3); color: var(--accent); }
+  .day.rest { background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
+  .day.opt { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.25); color: var(--blue); }
 
-  .week-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 20px; }
-  .day-cell { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px; text-transform: uppercase; letter-spacing: 0.3px; gap: 2px; }
-  .day-cell .day-emoji { font-size: 16px; }
-  .day-cell.train { background: rgba(240,180,41,0.12); border: 1px solid rgba(240,180,41,0.3); color: var(--accent); }
-  .day-cell.rest { background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
-  .day-cell.optional { background: rgba(59,130,246,0.1); border: 1px solid rgba(59,130,246,0.25); color: var(--blue); }
+  .pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
+  .pcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
+  .pcard h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); margin-bottom: 8px; }
+  .pcard li { font-size: 13px; color: var(--muted); padding: 3px 0; list-style: none; display: flex; gap: 6px; }
+  .pcard li::before { content: '✓'; color: var(--green); flex-shrink: 0; }
 
-  .progress-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .progress-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--card-radius); padding: 14px; }
-  .progress-card h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--accent); margin-bottom: 8px; }
-  .progress-card li { font-size: 13px; color: var(--muted); padding: 3px 0; display: flex; gap: 6px; align-items: flex-start; line-height: 1.4; list-style: none; }
-  .progress-card li::before { content: '✓'; color: var(--green); flex-shrink: 0; font-weight: 700; }
+  .knee-card { background: linear-gradient(135deg, rgba(239,68,68,.08), rgba(224,92,42,.05)); border: 1px solid rgba(239,68,68,.2); border-radius: var(--r); padding: 16px; margin-bottom: 14px; }
+  .knee-card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 14px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
+  .klist li { list-style: none; font-size: 13px; color: var(--muted); padding: 3px 0; display: flex; gap: 6px; }
+  .klist.avoid li::before { content: '✗'; color: var(--red); flex-shrink: 0; }
+  .klist.good li::before { content: '✓'; color: var(--green); flex-shrink: 0; }
 
-  .knee-card { background: linear-gradient(135deg, rgba(239,68,68,0.08), rgba(224,92,42,0.05)); border: 1px solid rgba(239,68,68,0.2); border-radius: var(--card-radius); padding: 16px; margin-bottom: 14px; }
-  .knee-card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 14px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--red); margin-bottom: 10px; }
-  .knee-list li { list-style: none; font-size: 13px; color: var(--muted); padding: 3px 0; display: flex; gap: 6px; line-height: 1.5; }
-  .knee-list.avoid li::before { content: '✗'; color: var(--red); flex-shrink: 0; }
-  .knee-list.good li::before { content: '✓'; color: var(--green); flex-shrink: 0; }
+  .circ-item { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; gap: 12px; }
+  .circ-em { font-size: 22px; flex-shrink: 0; }
+  .circ-nm { flex: 1; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; text-transform: uppercase; }
+  .circ-rp { font-size: 13px; font-weight: 600; color: var(--accent); background: rgba(240,180,41,.1); border-radius: 6px; padding: 4px 10px; flex-shrink: 0; }
 
-  .circuit-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 14px; }
-  .circuit-badge { background: rgba(240,180,41,0.15); border: 1px solid rgba(240,180,41,0.3); border-radius: 999px; padding: 4px 12px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; color: var(--accent); }
-  .circuit-item { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; gap: 12px; }
-  .circuit-emoji { font-size: 22px; flex-shrink: 0; }
-  .circuit-name { flex: 1; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; text-transform: uppercase; letter-spacing: 0.3px; }
-  .circuit-rep { font-size: 13px; font-weight: 600; color: var(--accent); background: rgba(240,180,41,0.1); border-radius: 6px; padding: 4px 10px; flex-shrink: 0; }
+  .rbadge { display: flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 600; color: var(--muted); }
+  .rbadge .rd { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
+  .rbadges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; margin-bottom: 14px; }
 
-  .rest-info { display: flex; gap: 8px; margin-top: 12px; flex-wrap: wrap; }
-  .rest-badge { display: flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 600; color: var(--muted); }
-  .rest-badge .rb-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-
-  .tip-box { background: rgba(34,197,94,0.07); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
-  .tip-box strong { color: var(--text); }
+  .tip { background: rgba(34,197,94,.07); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
+  .tip strong { color: var(--text); }
   .divider { height: 1px; background: var(--border); margin: 18px 0; }
-  .bottom-hint { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, var(--bg) 70%, transparent); height: 60px; pointer-events: none; }
-
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
+  .bottom-fade { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, var(--bg) 70%, transparent); height: 60px; pointer-events: none; }
 </style>
 </head>
 <body>
@@ -159,816 +151,724 @@
 <div class="header">
   <div class="header-top">
     <div class="logo">TREINO <span>4×</span></div>
-    <div class="profile-badge"><div class="dot"></div>120kg · 30% BF · 1,75m</div>
+    <div class="badge"><div class="dot"></div>120kg · 30% BF · 1,75m</div>
   </div>
   <nav class="tab-nav">
-    <button class="tab-btn active" onclick="switchTab('visao',this)">Visão Geral</button>
-    <button class="tab-btn" onclick="switchTab('upperA',this)">Upper A</button>
-    <button class="tab-btn" onclick="switchTab('lowerA',this)">Lower A</button>
-    <button class="tab-btn" onclick="switchTab('upperB',this)">Upper B</button>
-    <button class="tab-btn" onclick="switchTab('lowerB',this)">Lower B</button>
-    <button class="tab-btn" onclick="switchTab('coringa',this)">Coringa</button>
-    <button class="tab-btn" onclick="switchTab('regras',this)">Regras</button>
+    <button class="tab-btn active" onclick="tab('visao',this)">Visão Geral</button>
+    <button class="tab-btn" onclick="tab('upperA',this)">Upper A</button>
+    <button class="tab-btn" onclick="tab('lowerA',this)">Lower A</button>
+    <button class="tab-btn" onclick="tab('upperB',this)">Upper B</button>
+    <button class="tab-btn" onclick="tab('lowerB',this)">Lower B</button>
+    <button class="tab-btn" onclick="tab('coringa',this)">Coringa</button>
+    <button class="tab-btn" onclick="tab('regras',this)">Regras</button>
   </nav>
 </div>
 
 <div class="content">
 
-<!-- ===== VISÃO GERAL ===== -->
+<!-- VISÃO GERAL -->
 <div class="tab-content active" id="tab-visao">
   <div class="section-title">Sua <span class="accent">Semana</span></div>
-  <div class="section-subtitle">Estrutura semanal de treino</div>
-  <div class="week-grid">
-    <div class="day-cell train"><div class="day-emoji">💪</div>Seg<br>Upper A</div>
-    <div class="day-cell train"><div class="day-emoji">🦵</div>Ter<br>Lower A</div>
-    <div class="day-cell rest"><div class="day-emoji">😴</div>Qua<br>Desc.</div>
-    <div class="day-cell train"><div class="day-emoji">💪</div>Qui<br>Upper B</div>
-    <div class="day-cell train"><div class="day-emoji">🦵</div>Sex<br>Lower B</div>
-    <div class="day-cell optional"><div class="day-emoji">⭐</div>Sáb<br>Coringa</div>
-    <div class="day-cell rest"><div class="day-emoji">🛌</div>Dom<br>Desc.</div>
+  <div class="section-sub">Estrutura semanal de treino</div>
+  <div class="wk-grid">
+    <div class="day train"><div class="de">💪</div>Seg<br>Upper A</div>
+    <div class="day train"><div class="de">🦵</div>Ter<br>Lower A</div>
+    <div class="day rest"><div class="de">😴</div>Qua<br>Desc.</div>
+    <div class="day train"><div class="de">💪</div>Qui<br>Upper B</div>
+    <div class="day train"><div class="de">🦵</div>Sex<br>Lower B</div>
+    <div class="day opt"><div class="de">⭐</div>Sáb<br>Coringa</div>
+    <div class="day rest"><div class="de">🛌</div>Dom<br>Desc.</div>
   </div>
-  <div class="overview-grid">
-    <div class="overview-card"><div class="ov-label">Duração</div><div class="ov-value" style="color:var(--accent)">50–65</div><div class="ov-sub">minutos</div></div>
-    <div class="overview-card"><div class="ov-label">Meta cardio</div><div class="ov-value" style="color:var(--green)">150+</div><div class="ov-sub">min/semana</div></div>
-    <div class="overview-card"><div class="ov-label">Dias de treino</div><div class="ov-value" style="color:var(--blue)">4×</div><div class="ov-sub">semana</div></div>
-    <div class="overview-card"><div class="ov-label">Objetivo</div><div class="ov-value" style="font-size:16px;padding-top:4px">🔥 Queima</div><div class="ov-sub">+ definição</div></div>
+  <div class="ogrid">
+    <div class="ocard"><div class="ol">Duração</div><div class="ov" style="color:var(--accent)">50–65</div><div class="os">minutos</div></div>
+    <div class="ocard"><div class="ol">Meta cardio</div><div class="ov" style="color:var(--green)">150+</div><div class="os">min/semana</div></div>
+    <div class="ocard"><div class="ol">Dias de treino</div><div class="ov" style="color:var(--blue)">4×</div><div class="os">semana</div></div>
+    <div class="ocard"><div class="ol">Objetivo</div><div class="ov" style="font-size:16px;padding-top:4px">🔥 Queima</div><div class="os">+ definição</div></div>
   </div>
-  <div class="cardio-banner">
-    <div class="icon">🚴</div>
-    <div class="info"><h4>Cardio — Prioridade Máxima</h4><p>Bicicleta › Caminhada inclinada › Sem corrida</p></div>
-    <div class="cardio-pill">20 min</div>
-  </div>
-  <div class="rule-card">
+  <div class="banner"><div class="bi">🚴</div><div><h4>Cardio — Prioridade Máxima</h4><p>Bicicleta › Caminhada inclinada › Sem corrida</p></div><div class="pill">20 min</div></div>
+  <div class="card">
     <h3>📈 Sinais de progresso</h3>
-    <div class="rule-item"><div class="rule-icon green">😤</div><div class="rule-text"><strong>Mais disposição</strong> no dia a dia</div></div>
-    <div class="rule-item"><div class="rule-icon blue">💧</div><div class="rule-text"><strong>Suor mais fácil</strong> — sinal de condicionamento</div></div>
-    <div class="rule-item"><div class="rule-icon green">⚡</div><div class="rule-text"><strong>Recuperação melhor</strong> entre sessões</div></div>
-    <div class="rule-item"><div class="rule-icon yellow">👕</div><div class="rule-text"><strong>Roupas ficando mais largas</strong></div></div>
-    <div class="rule-item"><div class="rule-icon orange">📈</div><div class="rule-text"><strong>Cargas subindo</strong> lentamente</div></div>
+    <div class="row"><div class="icon-box g">😤</div><div class="row-text"><strong>Mais disposição</strong> no dia a dia</div></div>
+    <div class="row"><div class="icon-box b">💧</div><div class="row-text"><strong>Suor mais fácil</strong> — sinal de condicionamento</div></div>
+    <div class="row"><div class="icon-box g">⚡</div><div class="row-text"><strong>Recuperação melhor</strong> entre sessões</div></div>
+    <div class="row"><div class="icon-box y">👕</div><div class="row-text"><strong>Roupas ficando mais largas</strong></div></div>
+    <div class="row"><div class="icon-box o">📈</div><div class="row-text"><strong>Cargas subindo</strong> lentamente</div></div>
   </div>
-  <div class="tip-box"><strong>Lembre-se:</strong> Peso na balança é só UMA métrica. Fotos e medidas importam muito mais.</div>
+  <div class="tip"><strong>Lembre-se:</strong> Peso na balança é só UMA métrica. Fotos e medidas importam muito mais.</div>
   <div class="divider"></div>
-  <div class="section-title" style="font-size:22px;margin-bottom:4px">Progressão <span class="accent">Realista</span></div>
-  <div class="progress-grid">
-    <div class="progress-card"><h4>0–3 meses</h4><ul><li>Consistência</li><li>Adaptação articular</li><li>Aprender execução</li><li>Melhorar cardio</li></ul></div>
-    <div class="progress-card"><h4>3–6 meses</h4><ul><li>Gordura visível</li><li>Ganho muscular</li><li>Condicionamento ↑↑</li><li>Cargas subindo</li></ul></div>
+  <div class="section-title" style="font-size:22px;margin-bottom:12px">Progressão <span class="accent">Realista</span></div>
+  <div class="pgrid">
+    <div class="pcard"><h4>0–3 meses</h4><ul><li>Consistência</li><li>Adaptação articular</li><li>Aprender execução</li><li>Melhorar cardio</li></ul></div>
+    <div class="pcard"><h4>3–6 meses</h4><ul><li>Gordura visível</li><li>Ganho muscular</li><li>Condicionamento ↑↑</li><li>Cargas subindo</li></ul></div>
   </div>
 </div>
 
-<!-- ===== UPPER A ===== -->
+<!-- UPPER A -->
 <div class="tab-content" id="tab-upperA">
   <div class="section-title">Upper <span class="accent">A</span></div>
-  <div class="section-subtitle">Segunda-feira · 50–65 min</div>
-  <div class="rest-info">
-    <div class="rest-badge"><div class="rb-dot"></div>Grandes: 90 seg</div>
-    <div class="rest-badge"><div class="rb-dot" style="background:var(--blue)"></div>Isolados: 45–60 seg</div>
-  </div>
-  <div style="height:14px"></div>
+  <div class="section-sub">Segunda-feira · 50–65 min</div>
+  <div class="rbadges"><div class="rbadge"><div class="rd"></div>Grandes: 90s</div><div class="rbadge"><div class="rd" style="background:var(--blue)"></div>Isolados: 45–60s</div></div>
 
-  <!-- 1 Supino reto -->
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <!-- macro para gerar exercícios -->
+
+  <!-- 1 -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">1</div>
-      <div class="ex-info"><div class="ex-name">Supino reto com halteres</div><div class="ex-tags"><span class="tag tag-series">4 séries</span><span class="tag tag-reps">8–10 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Supino reto c/ halteres</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">8–10 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">10–12 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">8–9 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Supino com halteres</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="pvgTksLWjaA">
-        <iframe src="" allowfullscreen loading="lazy" title="Supino reto halteres execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–12 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8–9 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Supino com halteres</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/97/Dumbbell-bench-press-1.gif">
+        <img src="" alt="Supino reto com halteres" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <!-- 2 Puxador frontal -->
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <!-- 2 -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">2</div>
-      <div class="ex-info"><div class="ex-name">Puxador frontal</div><div class="ex-tags"><span class="tag tag-series">4 séries</span><span class="tag tag-reps">10–12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Puxador frontal</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">10–12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">30 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">25 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Puxador frontal</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="JRgv5fcyAHk">
-        <iframe src="" allowfullscreen loading="lazy" title="Puxador frontal execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Puxador frontal</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/98/Lat-pulldown-1.gif">
+        <img src="" alt="Puxador frontal" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <!-- 3 Crossover -->
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <!-- 3 -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">3</div>
-      <div class="ex-info"><div class="ex-name">Supino Crossover</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Supino Crossover</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">30 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">25 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Crossover peitoral</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="taI4XduLpTk">
-        <iframe src="" allowfullscreen loading="lazy" title="Crossover execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Crossover peitoral</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/98/Cable-crossover-1.gif">
+        <img src="" alt="Crossover" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
       </div>
     </div>
   </div>
 
-  <!-- 4 Remada baixa -->
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <!-- 4 -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">4</div>
-      <div class="ex-info"><div class="ex-name">Remada baixa</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">10–12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Remada baixa</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">10–12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">30 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">25 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Remada baixa</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="5zvxMuf378g">
-        <iframe src="" allowfullscreen loading="lazy" title="Remada baixa execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Remada sentada</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/83/Seated-cable-rows-1.gif">
+        <img src="" alt="Remada baixa" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <!-- 5 Desenvolvimento ombro -->
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <!-- 5 -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">5</div>
-      <div class="ex-info"><div class="ex-name">Desenvolvimento sentado</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">10 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Desenvolvimento sentado</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">10 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">8 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">6 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Desenvolvimento halteres</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="qEwKCR5JCog">
-        <iframe src="" allowfullscreen loading="lazy" title="Desenvolvimento halteres execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">8 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">6 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Desenvolvimento halteres</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/73/Dumbbell-shoulder-press-1.gif">
+        <img src="" alt="Desenvolvimento halteres" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <!-- 6 Tríceps corda -->
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <!-- 6 -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">6</div>
-      <div class="ex-info"><div class="ex-name">Tríceps corda</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12–15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Tríceps corda</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12–15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">25–30 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">20 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Tríceps corda</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="7le1JRUUagM">
-        <iframe src="" allowfullscreen loading="lazy" title="Tríceps corda execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">25–30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">20 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Tríceps corda</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/87/Pushdown-1.gif">
+        <img src="" alt="Tríceps corda" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <!-- 7 Rosca direta -->
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <!-- 7 -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">7</div>
-      <div class="ex-info"><div class="ex-name">Rosca direta halteres</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Rosca direta halteres</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">8–9 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">6 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Rosca direta</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="ykJmrZ5v0Oo">
-        <iframe src="" allowfullscreen loading="lazy" title="Rosca direta halteres execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">8–9 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">6 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Rosca direta</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/42/Bicep-curl-1.gif">
+        <img src="" alt="Rosca direta halteres" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="cardio-section"><h3>🚴 Cardio pós-treino</h3><div class="cardio-detail">💡 <span>Bicicleta ergométrica · 15–20 min · Intensidade moderada</span></div></div>
+  <div class="cardio-sec"><h3>🚴 Cardio pós-treino</h3><p>Bicicleta ergométrica · 15–20 min · Intensidade moderada</p></div>
 </div>
 
-<!-- ===== LOWER A ===== -->
+<!-- LOWER A -->
 <div class="tab-content" id="tab-lowerA">
   <div class="section-title">Lower <span class="accent">A</span></div>
-  <div class="section-subtitle">Terça-feira · 50–65 min</div>
-  <div class="rest-info">
-    <div class="rest-badge"><div class="rb-dot"></div>Grandes: 90 seg</div>
-    <div class="rest-badge"><div class="rb-dot" style="background:var(--blue)"></div>Isolados: 45–60 seg</div>
-  </div>
-  <div style="height:14px"></div>
+  <div class="section-sub">Terça-feira · 50–65 min</div>
+  <div class="rbadges"><div class="rbadge"><div class="rd"></div>Grandes: 90s</div><div class="rbadge"><div class="rd" style="background:var(--blue)"></div>Isolados: 45–60s</div></div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">1</div>
-      <div class="ex-info"><div class="ex-name">Leg Press</div><div class="ex-tags"><span class="tag tag-series">4 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Leg Press</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">35 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">25–30 kg</div></div>
-      </div>
-      <div class="notes-block">
-        <div class="notes-title">⚠️ Técnica — Joelho</div>
-        <ul><li>Pés mais altos na plataforma</li><li>Não descer demais</li><li>Movimento controlado</li><li>Sem tirar lombar do banco</li></ul>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Leg Press sem dor no joelho</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="QP0CGFyvLOg">
-        <iframe src="" allowfullscreen loading="lazy" title="Leg press execução joelho"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">35 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25–30 kg</div></div></div>
+      <div class="notes"><div class="nt">⚠️ Técnica — Joelho</div><ul><li>Pés mais altos na plataforma</li><li>Não descer demais</li><li>Movimento controlado</li><li>Sem tirar lombar do banco</li></ul></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Leg Press</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/55/Leg-press-1.gif">
+        <img src="" alt="Leg Press" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">2</div>
-      <div class="ex-info"><div class="ex-name">Mesa flexora</div><div class="ex-tags"><span class="tag tag-series">4 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Stiff c/ halteres</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">25–30 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">20 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Mesa flexora</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="8Nat6GRiEoc">
-        <iframe src="" allowfullscreen loading="lazy" title="Mesa flexora execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–12 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
+      <div class="notes"><div class="nt">⚠️ Substituição · Mesa flexora indisponível</div><ul><li>Mantenha as costas retas — não arqueie</li><li>Desça até sentir alongamento no posterior</li><li>Movimento lento e controlado</li></ul></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Stiff / RDL halteres</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/67/Romanian-deadlift-1.gif">
+        <img src="" alt="Stiff halteres" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">3</div>
-      <div class="ex-info"><div class="ex-name">Cadeira extensora</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Cadeira extensora</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">15–20 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">10–15 kg</div></div>
-      </div>
-      <div class="notes-block">
-        <div class="notes-title">⚠️ Técnica — Joelho</div>
-        <ul><li>Movimento lento</li><li>Sem "chutar"</li><li>Foque na contração</li></ul>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Cadeira extensora</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="YyvSfVjQeL0">
-        <iframe src="" allowfullscreen loading="lazy" title="Cadeira extensora execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">15–20 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">10–15 kg</div></div></div>
+      <div class="notes"><div class="nt">⚠️ Técnica — Joelho</div><ul><li>Movimento lento</li><li>Sem "chutar"</li><li>Foque na contração</li></ul></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Cadeira extensora</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/56/Leg-extension-1.gif">
+        <img src="" alt="Cadeira extensora" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">4</div>
-      <div class="ex-info"><div class="ex-name">Abdutora</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Abdutora</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">40 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">30 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Abdutora máquina</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="Qy9_P_-GKSE">
-        <iframe src="" allowfullscreen loading="lazy" title="Abdutora execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">40 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">30 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Abdutora máquina</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/60/Hip-abduction-1.gif">
+        <img src="" alt="Abdutora" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">5</div>
-      <div class="ex-info"><div class="ex-name">Adutora</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Adutora</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">40 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">30 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Adutora máquina</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="3JYhHOTK3VU">
-        <iframe src="" allowfullscreen loading="lazy" title="Adutora execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">40 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">30 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Adutora máquina</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/59/Hip-adduction-1.gif">
+        <img src="" alt="Adutora" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">6</div>
-      <div class="ex-info"><div class="ex-name">Panturrilha no leg press</div><div class="ex-tags"><span class="tag tag-series">4 séries</span><span class="tag tag-reps">15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Panturrilha no leg press</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">20 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">10–15 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Panturrilha no leg press</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="gwLzBJYoWlI">
-        <iframe src="" allowfullscreen loading="lazy" title="Panturrilha leg press execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">20 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">10–15 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Panturrilha</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/64/Calf-press-1.gif">
+        <img src="" alt="Panturrilha" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="cardio-section"><h3>🚴 Cardio pós-treino</h3><div class="cardio-detail">💡 <span>Bicicleta · 20–25 min</span></div></div>
+  <div class="cardio-sec"><h3>🚴 Cardio pós-treino</h3><p>Bicicleta · 20–25 min</p></div>
 </div>
 
-<!-- ===== UPPER B ===== -->
+<!-- UPPER B -->
 <div class="tab-content" id="tab-upperB">
   <div class="section-title">Upper <span class="accent">B</span></div>
-  <div class="section-subtitle">Quinta-feira · 50–65 min</div>
-  <div class="rest-info">
-    <div class="rest-badge"><div class="rb-dot"></div>Grandes: 90 seg</div>
-    <div class="rest-badge"><div class="rb-dot" style="background:var(--blue)"></div>Isolados: 45–60 seg</div>
-  </div>
-  <div style="height:14px"></div>
+  <div class="section-sub">Quinta-feira · 50–65 min</div>
+  <div class="rbadges"><div class="rbadge"><div class="rd"></div>Grandes: 90s</div><div class="rbadge"><div class="rd" style="background:var(--blue)"></div>Isolados: 45–60s</div></div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">1</div>
-      <div class="ex-info"><div class="ex-name">Supino inclinado halteres</div><div class="ex-tags"><span class="tag tag-series">4 séries</span><span class="tag tag-reps">10 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Supino inclinado halteres</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">10 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">10 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">8 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Supino inclinado halteres</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="RGeSgQmO1EU">
-        <iframe src="" allowfullscreen loading="lazy" title="Supino inclinado halteres execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Supino inclinado</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/16/Incline-press-1.gif">
+        <img src="" alt="Supino inclinado halteres" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">2</div>
-      <div class="ex-info"><div class="ex-name">Remada unilateral halter</div><div class="ex-tags"><span class="tag tag-series">4 séries</span><span class="tag tag-reps">10 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Remada unilateral halter</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">10 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">10–12 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">8 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Remada unilateral</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="pYcpY20QaE8">
-        <iframe src="" allowfullscreen loading="lazy" title="Remada unilateral execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–12 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Remada unilateral</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/80/Dumbbell-row-1.gif">
+        <img src="" alt="Remada unilateral" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">3</div>
-      <div class="ex-info"><div class="ex-name">Crossover baixo → cima</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12–15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Crossover baixo → cima</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12–15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">20–25 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">15–20 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Crossover baixo para cima</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="taI4XduLpTk">
-        <iframe src="" allowfullscreen loading="lazy" title="Crossover baixo cima execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">20–25 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">15–20 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Crossover</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/98/Cable-crossover-1.gif">
+        <img src="" alt="Crossover baixo cima" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">4</div>
-      <div class="ex-info"><div class="ex-name">Puxada neutra</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Puxada neutra</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">30 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">25 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Puxada pegada neutra</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="b0QW-f0H-10">
-        <iframe src="" allowfullscreen loading="lazy" title="Puxada neutra execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Puxada neutra</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/98/Lat-pulldown-1.gif">
+        <img src="" alt="Puxada neutra" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">5</div>
-      <div class="ex-info"><div class="ex-name">Elevação lateral</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Elevação lateral</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">5–6 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">4 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Elevação lateral</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="3VcKaXpzqRo">
-        <iframe src="" allowfullscreen loading="lazy" title="Elevação lateral execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">5–6 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">4 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Elevação lateral</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/72/Lateral-raise-1.gif">
+        <img src="" alt="Elevação lateral" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">6</div>
-      <div class="ex-info"><div class="ex-name">Tríceps francês halter</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Tríceps francês halter</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">8–10 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">6 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Tríceps francês</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="CBdOI6j8qfw">
-        <iframe src="" allowfullscreen loading="lazy" title="Tríceps francês execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">8–10 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">6 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Tríceps francês</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/85/Triceps-extension-1.gif">
+        <img src="" alt="Tríceps francês" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">7</div>
-      <div class="ex-info"><div class="ex-name">Rosca martelo</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Rosca martelo</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">8–10 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">6 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Rosca martelo</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="zC3nLlEvin4">
-        <iframe src="" allowfullscreen loading="lazy" title="Rosca martelo execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">8–10 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">6 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Rosca martelo</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/44/Hammer-curl-1.gif">
+        <img src="" alt="Rosca martelo" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="cardio-section"><h3>🚶 Cardio pós-treino</h3><div class="cardio-detail">💡 <span>Caminhada inclinada leve · 10–15 min · Sem correr</span></div></div>
+  <div class="cardio-sec"><h3>🚶 Cardio pós-treino</h3><p>Caminhada inclinada leve · 10–15 min · Sem correr</p></div>
 </div>
 
-<!-- ===== LOWER B ===== -->
+<!-- LOWER B -->
 <div class="tab-content" id="tab-lowerB">
   <div class="section-title">Lower <span class="accent">B</span></div>
-  <div class="section-subtitle">Sexta-feira · 50–65 min</div>
-  <div class="rest-info">
-    <div class="rest-badge"><div class="rb-dot"></div>Grandes: 90 seg</div>
-    <div class="rest-badge"><div class="rb-dot" style="background:var(--blue)"></div>Isolados: 45–60 seg</div>
-  </div>
-  <div style="height:14px"></div>
+  <div class="section-sub">Sexta-feira · 50–65 min</div>
+  <div class="rbadges"><div class="rbadge"><div class="rd"></div>Grandes: 90s</div><div class="rbadge"><div class="rd" style="background:var(--blue)"></div>Isolados: 45–60s</div></div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">1</div>
-      <div class="ex-info"><div class="ex-name">Leg Press unilateral</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Leg Press unilateral</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">15–20 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">Peso máq.</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Leg Press</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="QP0CGFyvLOg">
-        <iframe src="" allowfullscreen loading="lazy" title="Leg press unilateral execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">15–20 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">Peso máq.</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Leg Press</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/55/Leg-press-1.gif">
+        <img src="" alt="Leg Press unilateral" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">2</div>
-      <div class="ex-info"><div class="ex-name">Stiff com halteres</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">10–12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Stiff c/ halteres</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">10–12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">10 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">8 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Stiff halteres</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="wx9FOr4qug8">
-        <iframe src="" allowfullscreen loading="lazy" title="Stiff halteres execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Stiff / RDL</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/67/Romanian-deadlift-1.gif">
+        <img src="" alt="Stiff halteres" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">3</div>
-      <div class="ex-info"><div class="ex-name">Mesa flexora</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">12 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Stiff c/ halteres</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">25 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">20 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Mesa flexora</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="8Nat6GRiEoc">
-        <iframe src="" allowfullscreen loading="lazy" title="Mesa flexora execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–12 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
+      <div class="notes"><div class="nt">⚠️ Substituição · Mesa flexora indisponível</div><ul><li>Mantenha as costas retas — não arqueie</li><li>Desça até sentir alongamento no posterior</li><li>Movimento lento e controlado</li></ul></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Stiff / RDL halteres</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/67/Romanian-deadlift-1.gif">
+        <img src="" alt="Stiff halteres" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">4</div>
-      <div class="ex-info"><div class="ex-name">Extensora leve</div><div class="ex-tags"><span class="tag tag-series">2 séries</span><span class="tag tag-reps">15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Extensora leve</div><div class="ex-tags"><span class="tag ts">2 séries</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">10–15 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">Carga leve</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Cadeira extensora</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="YyvSfVjQeL0">
-        <iframe src="" allowfullscreen loading="lazy" title="Extensora leve execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–15 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">Carga leve</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Extensora</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/56/Leg-extension-1.gif">
+        <img src="" alt="Extensora" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">5</div>
-      <div class="ex-info"><div class="ex-name">Abdutora</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">15 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Abdutora</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Peso ideal</div><div class="value">40 kg</div></div>
-        <div class="weight-box"><div class="label">Progressão</div><div class="value">30 kg</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Abdutora</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="Qy9_P_-GKSE">
-        <iframe src="" allowfullscreen loading="lazy" title="Abdutora execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">40 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">30 kg</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Abdutora</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/60/Hip-abduction-1.gif">
+        <img src="" alt="Abdutora" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">6</div>
-      <div class="ex-info"><div class="ex-name">Prancha</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">30–45 seg</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Prancha</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">30–45 seg</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Intensidade</div><div class="value">Corporal</div></div>
-        <div class="weight-box"><div class="label">Regressão</div><div class="value">Joelhos</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Prancha abdominal</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="ASdvN_XEl_c">
-        <iframe src="" allowfullscreen loading="lazy" title="Prancha execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Intensidade</div><div class="wv">Corporal</div></div><div class="wbox"><div class="wl">Regressão</div><div class="wv">Joelhos</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Prancha</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/89/Plank-1.gif">
+        <img src="" alt="Prancha" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
       </div>
     </div>
   </div>
 
-  <div class="exercise-card">
-    <div class="exercise-header" onclick="toggleEx(this.parentElement)">
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
       <div class="ex-num">7</div>
-      <div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-tags"><span class="tag tag-series">3 séries</span><span class="tag tag-reps">10 reps</span></div></div>
-      <div class="ex-arrow">›</div>
+      <div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">10 reps</span></div></div>
+      <div class="ex-arr">›</div>
     </div>
-    <div class="exercise-body">
-      <div class="weight-grid">
-        <div class="weight-box ideal"><div class="label">Intensidade</div><div class="value">Corporal</div></div>
-        <div class="weight-box"><div class="label">Regressão</div><div class="value">Mov. reduzido</div></div>
-      </div>
-      <div class="video-btn" onclick="toggleVideo(this)">
-        <div class="vb-icon">▶️</div>
-        <div><div class="vb-text">Ver execução correta</div><div class="vb-sub">YouTube · Dead Bug core</div></div>
-        <div class="vb-arrow">▾</div>
-      </div>
-      <div class="video-wrapper" data-vid="4XLEnwUr1d8">
-        <iframe src="" allowfullscreen loading="lazy" title="Dead bug execução"></iframe>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Intensidade</div><div class="wv">Corporal</div></div><div class="wbox"><div class="wl">Regressão</div><div class="wv">Mov. reduzido</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Dead Bug core</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/89/Dead-bug-1.gif">
+        <img src="" alt="Dead Bug" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
       </div>
     </div>
   </div>
 
-  <div class="cardio-section"><h3>🚴 Cardio pós-treino</h3><div class="cardio-detail">💡 <span>Bicicleta · 20 min</span></div></div>
+  <div class="cardio-sec"><h3>🚴 Cardio pós-treino</h3><p>Bicicleta · 20 min</p></div>
 </div>
 
-<!-- ===== CORINGA ===== -->
+<!-- CORINGA -->
 <div class="tab-content" id="tab-coringa">
   <div class="section-title">Treino <span class="accent">Coringa</span></div>
-  <div class="section-subtitle">Sábado opcional · Circuito 3–5 voltas</div>
-  <div class="cardio-banner" style="margin-bottom:16px">
-    <div class="icon">⚡</div>
-    <div class="info"><h4>Objetivo do dia</h4><p>Gasto calórico · Condicionamento · Recuperação ativa</p></div>
-  </div>
-  <div class="circuit-header">
+  <div class="section-sub">Sábado opcional · Circuito 3–5 voltas</div>
+  <div class="banner"><div class="bi">⚡</div><div><h4>Objetivo do dia</h4><p>Gasto calórico · Condicionamento · Recuperação ativa</p></div></div>
+  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
     <div class="section-title" style="font-size:18px;margin:0">Circuito</div>
-    <div class="circuit-badge">30–45s descanso</div>
+    <div class="pill">30–45s descanso</div>
   </div>
-  <div class="circuit-item"><div class="circuit-emoji">🚴</div><div class="circuit-name">Bicicleta</div><div class="circuit-rep">2 min</div></div>
-  <div class="circuit-item"><div class="circuit-emoji">🔀</div><div class="circuit-name">Supino Crossover</div><div class="circuit-rep">15 reps</div></div>
-  <div class="circuit-item"><div class="circuit-emoji">🤜</div><div class="circuit-name">Remada</div><div class="circuit-rep">15 reps</div></div>
-  <div class="circuit-item"><div class="circuit-emoji">🦵</div><div class="circuit-name">Abdutora</div><div class="circuit-rep">20 reps</div></div>
-  <div class="circuit-item"><div class="circuit-emoji">💪</div><div class="circuit-name">Rosca halter</div><div class="circuit-rep">15 reps</div></div>
-  <div class="circuit-item"><div class="circuit-emoji">🔙</div><div class="circuit-name">Tríceps corda</div><div class="circuit-rep">15 reps</div></div>
-  <div class="circuit-item"><div class="circuit-emoji">🚶</div><div class="circuit-name">Caminhada</div><div class="circuit-rep">2 min</div></div>
-  <div class="tip-box" style="margin-top:16px"><strong>Dica:</strong> Este treino não precisa ser intenso. Objetivo é manter o corpo ativo e aumentar o gasto calórico semanal.</div>
+
+  <!-- Bicicleta -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
+      <div class="ex-num">🚴</div>
+      <div class="ex-info"><div class="ex-name">Bicicleta</div><div class="ex-tags"><span class="tag ts">Cardio</span><span class="tag tr">2 min</span></div></div>
+      <div class="ex-arr">›</div>
+    </div>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Duração</div><div class="wv">2 min</div></div><div class="wbox"><div class="wl">Intensidade</div><div class="wv">Moderada</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Bicicleta ergométrica</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/63/Stationary-bike-1.gif">
+        <img src="" alt="Bicicleta ergométrica" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Supino Crossover -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
+      <div class="ex-num">🔀</div>
+      <div class="ex-info"><div class="ex-name">Supino Crossover</div><div class="ex-tags"><span class="tag ts">Peitoral</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
+    </div>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">15</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Leve</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Crossover peitoral</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/98/Cable-crossover-1.gif">
+        <img src="" alt="Crossover" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Remada -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
+      <div class="ex-num">🤜</div>
+      <div class="ex-info"><div class="ex-name">Remada</div><div class="ex-tags"><span class="tag ts">Costas</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
+    </div>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">15</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Leve</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Remada sentada</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/83/Seated-cable-rows-1.gif">
+        <img src="" alt="Remada" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Abdutora -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
+      <div class="ex-num">🦵</div>
+      <div class="ex-info"><div class="ex-name">Abdutora</div><div class="ex-tags"><span class="tag ts">Glúteo</span><span class="tag tr">20 reps</span></div></div>
+      <div class="ex-arr">›</div>
+    </div>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">20</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Moderada</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Abdutora máquina</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/60/Hip-abduction-1.gif">
+        <img src="" alt="Abdutora" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Rosca halter -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
+      <div class="ex-num">💪</div>
+      <div class="ex-info"><div class="ex-name">Rosca halter</div><div class="ex-tags"><span class="tag ts">Bíceps</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
+    </div>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">15</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Leve</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Rosca direta</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/42/Bicep-curl-1.gif">
+        <img src="" alt="Rosca halter" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tríceps corda -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
+      <div class="ex-num">🔙</div>
+      <div class="ex-info"><div class="ex-name">Tríceps corda</div><div class="ex-tags"><span class="tag ts">Tríceps</span><span class="tag tr">15 reps</span></div></div>
+      <div class="ex-arr">›</div>
+    </div>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">15</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Leve</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Tríceps corda</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/87/Pushdown-1.gif">
+        <img src="" alt="Tríceps corda" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA · Everkinetic</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Caminhada -->
+  <div class="ex-card">
+    <div class="ex-head" onclick="toggleEx(this.parentElement)">
+      <div class="ex-num">🚶</div>
+      <div class="ex-info"><div class="ex-name">Caminhada</div><div class="ex-tags"><span class="tag ts">Cardio</span><span class="tag tr">2 min</span></div></div>
+      <div class="ex-arr">›</div>
+    </div>
+    <div class="ex-body">
+      <div class="wgrid"><div class="wbox ideal"><div class="wl">Duração</div><div class="wv">2 min</div></div><div class="wbox"><div class="wl">Ritmo</div><div class="wv">Leve</div></div></div>
+      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Caminhada</div></div><div class="ga">▾</div></div>
+      <div class="gif-wrap" data-src="https://wger.de/media/exercise-images/61/Walking-1.gif">
+        <img src="" alt="Caminhada" loading="lazy">
+        <div class="gif-credit">wger.de · CC-BY-SA</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="tip" style="margin-top:16px"><strong>Dica:</strong> Não precisa ser intenso. O objetivo é manter o corpo ativo e aumentar o gasto calórico semanal.</div>
 </div>
 
-<!-- ===== REGRAS ===== -->
+<!-- REGRAS -->
 <div class="tab-content" id="tab-regras">
   <div class="section-title">Regras <span class="accent">&amp; Guia</span></div>
-  <div class="section-subtitle">Tudo que você precisa saber</div>
-
-  <div class="rule-card">
-    <h3>📊 Escala de esforço</h3>
-    <div class="rule-item"><div class="rule-icon yellow">💡</div><div class="rule-text">Termine quase todas as séries sentindo que conseguiria fazer <strong>mais 1 ou 2 repetições</strong>. Não vai até a falha.</div></div>
+  <div class="section-sub">Tudo que você precisa saber</div>
+  <div class="card"><h3>📊 Escala de esforço</h3><div class="row"><div class="icon-box y">💡</div><div class="row-text">Termine quase todas as séries sentindo que conseguiria fazer <strong>mais 1 ou 2 repetições</strong>. Não vai até a falha.</div></div></div>
+  <div class="card"><h3>📈 Progressão de carga</h3>
+    <div class="row"><div class="icon-box g">✅</div><div class="row-text">Todas as séries no topo das reps com boa execução → <strong>aumente a carga</strong> no próximo treino.</div></div>
+    <div class="row"><div class="icon-box o">⚠️</div><div class="row-text">Execução quebrando → <strong>use a carga de progressão</strong>.</div></div>
   </div>
-  <div class="rule-card">
-    <h3>📈 Progressão de carga</h3>
-    <div class="rule-item"><div class="rule-icon green">✅</div><div class="rule-text">Se conseguir todas as séries no topo das reps com boa execução → <strong>aumente a carga</strong> no próximo treino.</div></div>
-    <div class="rule-item"><div class="rule-icon orange">⚠️</div><div class="rule-text">Se a execução começar a quebrar → <strong>use a carga de progressão</strong>.</div></div>
+  <div class="card"><h3>⏱ Descanso</h3>
+    <div class="row"><div class="icon-box b">🏋️</div><div class="row-text"><strong>Exercícios grandes:</strong> 90 segundos</div></div>
+    <div class="row"><div class="icon-box b">🦾</div><div class="row-text"><strong>Exercícios isolados:</strong> 45–60 segundos</div></div>
   </div>
-  <div class="rule-card">
-    <h3>⏱ Descanso entre séries</h3>
-    <div class="rule-item"><div class="rule-icon blue">🏋️</div><div class="rule-text"><strong>Exercícios grandes:</strong> 90 segundos</div></div>
-    <div class="rule-item"><div class="rule-icon blue">🦾</div><div class="rule-text"><strong>Exercícios isolados:</strong> 45–60 segundos</div></div>
-  </div>
-
   <div class="divider"></div>
   <div class="section-title" style="font-size:22px;margin-bottom:12px">🦵 Atenção ao <span style="color:var(--accent2)">Joelho</span></div>
-
-  <div class="knee-card">
-    <h3>✗ Evite</h3>
-    <ul class="knee-list avoid"><li>Corrida forte</li><li>Saltos</li><li>Agachamento profundo pesado</li><li>HIIT agressivo</li></ul>
-  </div>
-  <div class="rule-card" style="border-color:rgba(34,197,94,0.25)">
-    <h3 style="color:var(--green)">✓ Priorize</h3>
-    <ul class="knee-list good"><li>Fortalecimento gradual</li><li>Perda de peso</li><li>Bicicleta ergométrica</li><li>Execução controlada</li></ul>
-  </div>
-  <div class="tip-box"><strong>Boa notícia:</strong> A perda de gordura vai melhorar MUITO sua dor no joelho ao longo do tempo.</div>
-
+  <div class="knee-card"><h3>✗ Evite</h3><ul class="klist avoid"><li>Corrida forte</li><li>Saltos</li><li>Agachamento profundo pesado</li><li>HIIT agressivo</li></ul></div>
+  <div class="card" style="border-color:rgba(34,197,94,.25)"><h3 style="color:var(--green)">✓ Priorize</h3><ul class="klist good"><li>Fortalecimento gradual</li><li>Perda de peso</li><li>Bicicleta ergométrica</li><li>Execução controlada</li></ul></div>
+  <div class="tip"><strong>Boa notícia:</strong> A perda de gordura vai melhorar MUITO sua dor no joelho ao longo do tempo.</div>
   <div class="divider"></div>
   <div class="section-title" style="font-size:22px;margin-bottom:4px">🚴 Meta de <span class="accent">Cardio</span></div>
-  <div class="section-subtitle">Semanal</div>
-  <div class="overview-grid">
-    <div class="overview-card"><div class="ov-label">Meta mínima</div><div class="ov-value" style="color:var(--accent)">150</div><div class="ov-sub">min/semana</div></div>
-    <div class="overview-card"><div class="ov-label">Meta ideal</div><div class="ov-value" style="color:var(--green)">300</div><div class="ov-sub">min/semana</div></div>
+  <div class="section-sub">Semanal</div>
+  <div class="ogrid">
+    <div class="ocard"><div class="ol">Meta mínima</div><div class="ov" style="color:var(--accent)">150</div><div class="os">min/semana</div></div>
+    <div class="ocard"><div class="ol">Meta ideal</div><div class="ov" style="color:var(--green)">300</div><div class="os">min/semana</div></div>
   </div>
-  <div class="tip-box"><strong>Regra de ouro:</strong> Não precisa ser intenso. Consistência ganha sempre.</div>
+  <div class="tip"><strong>Regra de ouro:</strong> Não precisa ser intenso. Consistência ganha sempre.</div>
 </div>
 
-</div><!-- /content -->
-<div class="bottom-hint"></div>
+</div>
+<div class="bottom-fade"></div>
 
 <script>
-function switchTab(id, btn) {
+function tab(id, btn) {
   document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
   document.getElementById('tab-' + id).classList.add('active');
   btn.classList.add('active');
 }
 
-function toggleEx(card) {
-  card.classList.toggle('open');
-}
+function toggleEx(card) { card.classList.toggle('open'); }
 
-function toggleVideo(btn) {
-  const wrapper = btn.nextElementSibling;
-  const isOpen = wrapper.classList.contains('open');
+function toggleGif(btn) {
+  const wrap = btn.nextElementSibling;
+  const isOpen = wrap.classList.contains('open');
   if (!isOpen) {
-    const vid = wrapper.getAttribute('data-vid');
-    const iframe = wrapper.querySelector('iframe');
-    if (!iframe.src || iframe.src === window.location.href) {
-      iframe.src = 'https://www.youtube.com/embed/' + vid + '?rel=0&modestbranding=1';
+    const img = wrap.querySelector('img');
+    if (!img.src || img.src === window.location.href) {
+      img.src = wrap.getAttribute('data-src');
     }
-    wrapper.classList.add('open');
+    wrap.classList.add('open');
     btn.classList.add('open');
   } else {
-    wrapper.classList.remove('open');
+    wrap.classList.remove('open');
     btn.classList.remove('open');
   }
 }
