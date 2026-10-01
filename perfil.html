@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Discoteca — Perfil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=27" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0b0b0b" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Discoteca" />
+</head>
+<body>
+
+  <!-- ===== LOGIN ===== -->
+  <div id="loginScreen" class="lg">
+    <header class="lg-top">
+      <div class="app-nav-logo">D<span>iscoteca</span></div>
+      <div class="lg-tag">Mídia física · inteligência digital</div>
+    </header>
+    <main class="lg-grid">
+      <section>
+        <div class="page-eyebrow">Bem-vindo de volta</div>
+        <h1 class="lg-title">Sua coleção <span class="accent">está esperando.</span></h1>
+        <p class="lg-lede">Um companheiro pra sua coleção física. Seu gosto, sua estante, sua próxima compra.</p>
+        <div class="lg-pilares">
+          <div class="lg-pilar"><span class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><div><strong>Coleção</strong><span>Cada disco que você tem, com formato, condição e capa.</span></div></div>
+          <div class="lg-pilar"><span class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></span><div><strong>Wishlist priorizada</strong><span>Recomendações a partir do que você ouve, com o porquê de cada uma.</span></div></div>
+          <div class="lg-pilar"><span class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><div><strong>Audições</strong><span>O diário do que realmente tocou na vitrola.</span></div></div>
+        </div>
+      </section>
+      <section class="lg-stack" aria-label="Entrar">
+        <div class="layer"></div><div class="layer"></div>
+        <div class="lg-card">
+          <div class="lg-disc-area" aria-hidden="true"><div class="lg-disc"></div></div>
+          <div class="lg-body">
+            <h2>Entrar</h2>
+            <p class="lg-sub">Acesse sua coleção e recomendações.</p>
+            <button class="login-btn" id="btnLogin" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Entrar com Google</button>
+            <div id="loginError" class="login-error" role="alert">Erro ao fazer login. Tente novamente.</div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <!-- ===== APP ===== -->
+  <div id="appScreen" style="display:none;">
+    <div class="app-shell">
+
+      <!-- SIDEBAR -->
+      <header class="app-nav">
+        <a href="index.html" class="app-nav-logo" aria-label="Discoteca — Início">D<span>iscoteca</span></a>
+        <nav class="app-nav-links" aria-label="Navegação principal">
+          <a href="index.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="lbl">Início</span></a>
+          <a href="colecao.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="lbl">Coleção</span></a>
+          <a href="wishlist.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="lbl">Wishlist</span><span class="badge-count" id="navWishlistCount" style="display:none;">0</span></a>
+          <a href="audicoes.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="lbl">Audições</span></a>
+          <a href="radar-musical.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/><line x1="12" y1="3" x2="12" y2="7"/></svg><span class="lbl">Radar Musical</span></a>
+          <a href="estatisticas.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span class="lbl">Estatísticas</span></a>
+          <a href="importar.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="lbl">Importar</span></a>
+        </nav>
+        <div class="app-nav-right">
+          <a href="perfil.html" class="app-nav-icon active" title="Configurações" aria-label="Configurações"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+          <a href="perfil.html" class="user app-nav-user" aria-label="Seu perfil"><span class="avatar" id="userAvatar">?</span><span class="name" id="userNameDisplay">Carregando...</span></a>
+        </div>
+      </header>
+
+      <!-- MAIN -->
+      <div class="app-main">
+        <!-- HERO -->
+        <div class="set-hero">
+          <div>
+            <div class="page-eyebrow">Sua conta</div>
+            <h1><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>️ <span class="accent">Configurações</span></h1>
+            <div class="sub">Configure a Discoteca do seu jeito</div>
+          </div>
+          <div>
+            <button class="btn-save" id="btnSalvarTudo">Salvar alterações</button>
+          </div>
+        </div>
+
+        <div class="set-grid">
+
+          <!-- CONTA -->
+          <div class="set-card">
+            <div class="card-header"><h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg> Conta</h3><span class="sub">gerenciado pelo Google</span></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M16.2 8.3A5.5 5.5 0 1 0 17.5 13H12"/></svg></span><span class="label">Google</span><span class="value" id="setGoogleEmail">— <span class="readonly">· conectado</span></span></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="4"/></svg></span><span class="label">Nome</span><span class="value" id="setNomeGoogle">—</span></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><span class="label">Membro desde</span><span class="value" id="setMembroDesde">—</span></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg></span><span class="label">Sessão</span><button id="btnLogout" style="background:transparent; border:1px solid var(--card-line); color:var(--paper); padding:6px 16px; border-radius:20px; font-size:12.5px; cursor:pointer; font-family:'Inter',sans-serif;">Sair</button></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg></span><span class="label">Apresentação</span><button type="button" id="btnReverOnboarding" onclick="DiscotecaOnboarding.abrir()" style="background:transparent; border:1px solid var(--card-line); color:var(--paper); padding:6px 16px; border-radius:20px; font-size:12.5px; cursor:pointer; font-family:'Inter',sans-serif;">Rever apresentação do Discoteca</button></div>
+          </div>
+
+          <!-- PERFIL DE COLECIONADOR -->
+          <div class="set-card">
+            <div class="card-header"><h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg> Perfil de colecionador</h3><span id="setLinkPerfilPublico"></span></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M12 20h9"/><path d="M16.5 3.5a2.12 2.12 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></span><span class="label">Nome de exibição</span><input type="text" id="campo-nome-exibicao" maxlength="60" placeholder="Como quer aparecer publicamente"></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg></span><span class="label">Localização</span><input type="text" id="campo-localizacao" maxlength="60" placeholder="Ex: São Luís, MA"></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5z"/></svg></span><span class="label">Bio</span><textarea id="campo-bio" maxlength="280" placeholder="Conte um pouco sobre sua coleção..."></textarea></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><span class="label">Spotify</span><input type="url" id="campo-spotify" placeholder="https://open.spotify.com/user/..."></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><span class="label">Discogs</span><input type="url" id="campo-discogs" placeholder="https://discogs.com/user/..."></div>
+            <div class="set-row"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="4"/></svg></span><span class="label">Instagram</span><input type="url" id="campo-instagram" placeholder="https://instagram.com/..."></div>
+          </div>
+
+          <!-- SERVIÇOS CONECTADOS -->
+          <div class="set-card">
+            <div class="card-header"><h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M12 22v-5"/><path d="M9 8V2"/><path d="M15 8V2"/><path d="M18 8v5a4 4 0 0 1-4 4h-4a4 4 0 0 1-4-4V8z"/></svg> Serviços conectados</h3><span class="sub">integrações</span></div>
+            <div class="set-service-grid">
+              <div class="set-service-card">
+                <div class="left"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><div><div class="name">Spotify</div><div class="status">Pela planilha (CSV) exportada</div></div></div>
+                <a class="set-badge pending" href="importar.html" style="text-decoration:none;">Importar</a>
+              </div>
+              <div class="set-service-card">
+                <div class="left"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><div><div class="name">Discogs</div><div class="status">Importação da coleção ainda não existe</div></div></div>
+                <span class="set-badge disconnected">Indisponível</span>
+              </div>
+              <div class="set-service-card">
+                <div class="left"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></span><div><div class="name">Last.fm</div><div class="status">Pelo seu nome de usuário</div></div></div>
+                <a class="set-badge pending" href="importar.html" style="text-decoration:none;">Importar</a>
+              </div>
+            </div>
+            <div class="pp-empty-note" style="margin-top:10px;">Spotify (planilha CSV) e Last.fm (nome de usuário) entram pela aba Importar. Conexão com login direto ainda não existe.</div>
+          </div>
+
+          <!-- PREFERÊNCIAS DA COLEÇÃO -->
+          <div class="set-card">
+            <div class="card-header"><h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg> Preferências da coleção</h3><span class="sub">seus padrões</span></div>
+            <div class="set-selector-row">
+              <div class="left"><div class="title">Formato preferido</div><div class="sub">Padrão ao adicionar discos</div></div>
+              <div class="options" id="optFormato">
+                <span class="opt" data-valor="Vinil">Vinil</span><span class="opt" data-valor="CD">CD</span><span class="opt" data-valor="Cassete">Cassete</span><span class="opt" data-valor="DVD/Blu-ray">DVD/Blu-ray</span>
+              </div>
+            </div>
+            <div class="set-selector-row">
+              <div class="left"><div class="title">Visualização padrão</div><div class="sub">Layout da Coleção ao abrir</div></div>
+              <div class="options" id="optVisualizacao">
+                <span class="opt" data-valor="cards">Cards</span><span class="opt" data-valor="list">Lista</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- NOTIFICAÇÕES -->
+          <div class="set-card">
+            <div class="card-header"><h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg> Notificações</h3><span class="sub">fica sabendo</span></div>
+            <div class="pp-empty-note" style="margin-bottom:6px;">Envio real (e-mail/push) ainda não existe — suas preferências já ficam salvas pra quando chegar.</div>
+            <div class="set-toggle-item"><div class="left"><div class="title">Alertas de wishlist</div><div class="sub">Novos matches e reposições</div></div><button class="set-toggle" data-campo="notif_wishlist"><div class="dot"></div></button></div>
+            <div class="set-toggle-item"><div class="left"><div class="title">Discografia completa</div><div class="sub">Marcos de artistas</div></div><button class="set-toggle" data-campo="notif_discografia"><div class="dot"></div></button></div>
+            <div class="set-toggle-item"><div class="left"><div class="title">E-mail</div><div class="sub">Resumo semanal</div></div><button class="set-toggle" data-campo="notif_email"><div class="dot"></div></button></div>
+          </div>
+
+          <!-- IMPORTAR E EXPORTAR -->
+          <div class="set-card">
+            <div class="card-header"><h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg> Importar e exportar</h3><span class="sub">gerencie seus dados</span></div>
+            <div class="set-action-grid">
+              <div class="set-action-card">
+                <div class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></div><div class="name">Importar Spotify</div><div class="desc">Login direto (em breve)</div>
+                <button disabled title="Em breve">Em breve</button>
+              </div>
+              <div class="set-action-card">
+                <div class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div class="name">Importar Discogs</div><div class="desc">Coleção via CSV</div>
+                <button onclick="window.location.href='importar.html'">Ir pra Importar</button>
+              </div>
+              <div class="set-action-card">
+                <div class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><div class="name">Importar CSV</div><div class="desc">Playlists do Spotify (Exportify)</div>
+                <button class="primary" id="btnAbrirImportCsv">Importar</button>
+              </div>
+              <div class="set-action-card">
+                <div class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg></div><div class="name">Exportar coleção</div><div class="desc">Download em CSV</div>
+                <button id="btnExportarCsv">Exportar</button>
+              </div>
+              <div class="set-action-card">
+                <div class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg></div><div class="name">Backup completo</div><div class="desc">Tudo em JSON</div>
+                <button id="btnBackup">Baixar</button>
+              </div>
+              <div class="set-action-card">
+                <div class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></div><div class="name">Restaurar backup</div><div class="desc">A partir de um arquivo .json</div>
+                <div style="position:relative; overflow:hidden; display:inline-block;">
+                  <button type="button" id="btnRestaurarBackupLabel">Escolher arquivo</button>
+                  <input type="file" id="inputRestaurarBackup" accept=".json,application/json" style="position:absolute; left:0; top:0; opacity:0; width:100%; height:100%; cursor:pointer;">
+                </div>
+                <div id="statusRestaurarBackup" style="font-size:11px; opacity:0.5; margin-top:6px;"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- PRIVACIDADE -->
+          <div class="set-card">
+            <div class="card-header"><h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Privacidade</h3><span class="sub">controle sua visibilidade</span></div>
+            <div class="set-toggle-item"><div class="left"><div class="title">Perfil público</div><div class="sub">Visível pra qualquer pessoa com o link</div></div><button class="set-toggle" data-campo="privacidade_perfil_publico"><div class="dot"></div></button></div>
+            <div class="set-toggle-item"><div class="left"><div class="title">Mostrar valor da coleção</div><div class="sub">No perfil público</div></div><button class="set-toggle" data-campo="privacidade_valor"><div class="dot"></div></button></div>
+            <div class="set-toggle-item"><div class="left"><div class="title">Mostrar wishlist</div><div class="sub">No perfil público</div></div><button class="set-toggle" data-campo="privacidade_wishlist"><div class="dot"></div></button></div>
+          </div>
+
+
+          <!-- ZONA DE PERIGO -->
+          <div class="set-card set-danger">
+            <div class="card-header"><h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>️ Zona de perigo</h3><span class="sub">ações irreversíveis</span></div>
+            <div class="set-danger-item"><div class="left"><div class="title">Limpar dados importados</div><div class="sub">Remove playlists importadas (mantém coleção e wishlist)</div></div><button id="btnLimparImportados">Limpar</button></div>
+            <div class="set-danger-item"><div class="left"><div class="title">Zerar coleção</div><div class="sub">Apaga todos os discos da coleção física</div></div><button id="btnZerarColecao">Zerar</button></div>
+            <div class="set-danger-item"><div class="left"><div class="title">Zerar wishlist</div><div class="sub">Apaga a lista de compras atual</div></div><button id="btnZerarWishlist">Zerar</button></div>
+            <div class="set-danger-item"><div class="left"><div class="title">Zerar tudo</div><div class="sub">Apaga playlists, coleção e wishlist de uma vez (mantém seu perfil)</div></div><button id="btnZerarTudo">Zerar tudo</button></div>
+            <div class="set-danger-item"><div class="left"><div class="title">Restaurar preferências</div><div class="sub">Volta tudo desta página pro padrão</div></div><button id="btnResetarPrefs">Restaurar</button></div>
+            <div class="set-danger-item"><div class="left"><div class="title">Desconectar serviços</div><div class="sub">Nenhum serviço conectado ainda</div></div><button id="btnDesconectarTudo">Desconectar</button></div>
+            <div class="set-danger-item"><div class="left"><div class="title">Excluir conta</div><div class="sub">Remove todos os seus dados permanentemente</div></div><button id="btnExcluirConta">Excluir conta</button></div>
+          </div>
+
+          <div class="set-msg" id="setMsg"></div>
+
+        </div>
+
+      </div>
+    </div>
+  </div><!-- /appScreen -->
+
+  <!-- ===== MODAL: IMPORTAR CSV ===== -->
+  <div class="modal-overlay" id="modalImportCsv">
+    <div class="modal">
+      <div class="modal-header">
+        <h2><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg> Importar Playlists (CSV)</h2>
+        <button class="modal-close" id="btnFecharImportCsv"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <p style="font-size:12.5px; opacity:0.6; margin-bottom:16px;">Exporte suas playlists com o <a href="https://exportify.net" target="_blank" style="color:var(--terracotta);">Exportify</a> e envie os 3 arquivos abaixo.</p>
+      <div class="set-import-slot">
+        <label>Top do Ano (peso 3x)</label>
+        <input type="file" id="csvTop" accept=".csv">
+        <div class="set-import-status" id="statusCsvTop"></div>
+      </div>
+      <div class="set-import-slot">
+        <label>Descobertas (peso 2x)</label>
+        <input type="file" id="csvDesc" accept=".csv">
+        <div class="set-import-status" id="statusCsvDesc"></div>
+      </div>
+      <div class="set-import-slot">
+        <label>Favoritos (peso 1x)</label>
+        <input type="file" id="csvFav" accept=".csv">
+        <div class="set-import-status" id="statusCsvFav"></div>
+      </div>
+      <button class="form-btn" id="btnEnviarCsv">Importar arquivos</button>
+      <div class="form-msg" id="importCsvMsg"></div>
+    </div>
+  </div>
+
+  <!-- ===== MODAL: CONFIRMAÇÃO ===== -->
+  <div class="modal-overlay" id="modalConfirm">
+    <div class="modal" style="max-width:450px;">
+      <div class="modal-header">
+        <h2><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>️ Confirmar</h2>
+        <button class="modal-close" id="btnFecharConfirm"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <div class="modal-confirm-text" id="confirmMessage">Tem certeza que deseja fazer isso?</div>
+      <div style="display:flex; gap:12px; margin-top:20px;">
+        <button class="btn-confirm-cancel" id="btnConfirmCancel">Cancelar</button>
+        <button class="btn-confirm-danger" id="btnConfirmAction">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="app-footer">
+    <div class="app-footer-grid">
+      <div class="app-footer-brand"><div class="app-nav-logo">D<span>iscoteca</span></div><p>Sua coleção, suas recomendações.</p></div>
+      <div class="app-footer-col"><h5>Navegar</h5><a href="colecao.html">Coleção</a><a href="wishlist.html">Wishlist</a><a href="audicoes.html">Audições</a></div>
+      <div class="app-footer-col"><h5>Inteligência</h5><a href="radar-musical.html">Radar Musical</a><a href="estatisticas.html">Estatísticas</a><a href="importar.html">Importar</a></div>
+      <div class="app-footer-col"><h5>Conta</h5><a href="perfil.html">Perfil e configurações</a></div>
+    </div>
+  </footer>
+
+  <script>
+// ================================================================
+// CONFIGURAÇÕES
+// ================================================================
+const API_URL = 'https://fportelada.pythonanywhere.com';
+
+
+// Toda chamada ao backend passa por aqui — garante que o cookie de
+// sessão (login de verdade) sempre vá junto, mesmo entre domínios
+// diferentes (GitHub Pages -> PythonAnywhere). Sem isso, o navegador
+// não manda o cookie, e a autenticação real nunca chega a funcionar.
+function apiFetch(url, opcoes = {}) {
+  const sessaoToken = localStorage.getItem('discoteca_session_token');
+  const opcoesFinais = { ...opcoes };
+  opcoesFinais.headers = { ...(opcoes.headers || {}), 'X-Session-Token': sessaoToken || '' };
+  return fetch(url, opcoesFinais);
+}
+const DEV_MODE = false;
+const DEV_USER_ID = 1;
+const DEV_USER_NOME = 'Teste ID 1';
+
+let usuarioId = null;
+let confirmCallback = null;
+let configAtual = {};
+
+// ================================================================
+// SIDEBAR / TOP BAR (compartilhado — mesmo padrão do Início e Coleção)
+// ================================================================
+function atualizarBadgeWishlist(n) {
+  const el = document.getElementById('navWishlistCount');
+  if (!el) return;
+  if (n > 0) { el.textContent = n; el.style.display = 'flex'; }
+  else { el.style.display = 'none'; }
+}
+
+function carregarAvatarTopo() {
+  if (!usuarioId) return;
+  apiFetch(API_URL + '/perfil/' + usuarioId)
+    .then(r => r.json())
+    .then(perfil => {
+      if (!perfil || perfil.erro) return;
+      const nome = perfil.nome_exibicao || perfil.nome || DEV_USER_NOME;
+      const nomeEl = document.getElementById('userNameDisplay');
+      if (nomeEl) nomeEl.textContent = nome;
+      const avatarEl = document.getElementById('userAvatar');
+      if (avatarEl) {
+        if (perfil.foto_url) avatarEl.innerHTML = `<img src="${perfil.foto_url}" alt="${nome}">`;
+        else avatarEl.textContent = nome.charAt(0).toUpperCase();
+      }
+    })
+    .catch(() => {});
+}
+
+function sincronizarBadge() {
+  if (!usuarioId) return;
+  apiFetch(API_URL + '/recomendacoes?user_id=' + usuarioId)
+    .then(r => r.json())
+    .then(data => atualizarBadgeWishlist(Array.isArray(data) ? data.length : 0))
+    .catch(() => {});
+}
+
+// ================================================================
+// LOGIN
+// ================================================================
+function salvarSessao(userId, nome, token) {
+  localStorage.setItem('discoteca_user_id', userId);
+  localStorage.setItem('discoteca_user_nome', nome);
+  if (token) localStorage.setItem('discoteca_session_token', token);
+}
+function carregarSessao() {
+  const userId = localStorage.getItem('discoteca_user_id');
+  const nome = localStorage.getItem('discoteca_user_nome');
+  const token = localStorage.getItem('discoteca_session_token');
+  if (userId && nome && token) return { userId, nome, token };
+  return null;
+}
+function limparSessao() {
+  localStorage.removeItem('discoteca_user_id');
+  localStorage.removeItem('discoteca_user_nome');
+  localStorage.removeItem('discoteca_session_token');
+}
+
+// ================================================================
+// MODAL: CONFIRMAÇÃO (usado pela Zona de Perigo)
+// ================================================================
+function abrirConfirm(mensagem, callback) {
+  document.getElementById('confirmMessage').textContent = mensagem;
+  confirmCallback = callback;
+  document.getElementById('modalConfirm').classList.add('open');
+}
+document.addEventListener('DOMContentLoaded', function() {
+  const btnFecharConfirm = document.getElementById('btnFecharConfirm');
+  const btnConfirmCancel = document.getElementById('btnConfirmCancel');
+  const btnConfirmAction = document.getElementById('btnConfirmAction');
+  if (btnFecharConfirm) btnFecharConfirm.addEventListener('click', function() {
+    document.getElementById('modalConfirm').classList.remove('open');
+    confirmCallback = null;
+  });
+  if (btnConfirmCancel) btnConfirmCancel.addEventListener('click', function() {
+    document.getElementById('modalConfirm').classList.remove('open');
+    confirmCallback = null;
+  });
+  if (btnConfirmAction) btnConfirmAction.addEventListener('click', function() {
+    if (confirmCallback) { confirmCallback(); confirmCallback = null; }
+    document.getElementById('modalConfirm').classList.remove('open');
+  });
+});
+
+function ativarTelaApp(nome) {
+  const loginScreen = document.getElementById('loginScreen');
+  const appScreen = document.getElementById('appScreen');
+  if (loginScreen) loginScreen.style.display = 'none';
+  if (appScreen) appScreen.style.display = 'block';
+  const nomeDisplay = document.getElementById('userNameDisplay');
+  if (nomeDisplay) nomeDisplay.textContent = nome;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const btnLogin = document.getElementById('btnLogin');
+  if (btnLogin) {
+    btnLogin.addEventListener('click', function() {
+      const btn = this;
+      const error = document.getElementById('loginError');
+      btn.disabled = true;
+      if (error) error.style.display = 'none';
+      apiFetch(API_URL + '/login')
+        .then(r => r.json())
+        .then(d => {
+          if (d.auth_url) window.location.href = d.auth_url;
+          else throw new Error('URL não recebida');
+        })
+        .catch(() => {
+          if (error) error.style.display = 'block';
+          btn.disabled = false;
+        });
+    });
+  }
+  const btnLogout = document.getElementById('btnLogout');
+  if (btnLogout) {
+    btnLogout.addEventListener('click', function() {
+      limparSessao();
+      window.location.href = 'index.html';
+    });
+  }
+});
+
+// ================================================================
+// VERIFICAR SESSÃO
+// ================================================================
+function verificarSessao() {
+  if (DEV_MODE) {
+    usuarioId = DEV_USER_ID;
+    salvarSessao(DEV_USER_ID, DEV_USER_NOME);
+    ativarTelaApp(DEV_USER_NOME);
+    if (typeof onPaginaPronta === 'function') onPaginaPronta();
+    return;
+  }
+  const params = new URLSearchParams(window.location.search);
+  const userId = params.get('user_id');
+  const nome = params.get('nome');
+  const token = params.get('token');
+  if (userId && nome && token) {
+    salvarSessao(userId, nome, token);
+    usuarioId = userId;
+    ativarTelaApp(nome);
+    window.history.replaceState({}, document.title, window.location.pathname);
+    if (typeof onPaginaPronta === 'function') onPaginaPronta();
+    return;
+  }
+  const sessao = carregarSessao();
+  if (sessao) {
+    usuarioId = sessao.userId;
+    ativarTelaApp(sessao.nome);
+    if (typeof onPaginaPronta === 'function') onPaginaPronta();
+    return;
+  }
+  apiFetch(API_URL + '/sessao')
+    .then(r => r.json())
+    .then(data => {
+      if (data.logado) {
+        usuarioId = data.usuario_id;
+        salvarSessao(data.usuario_id, data.nome || 'Usuário');
+        ativarTelaApp(data.nome || 'Usuário');
+        if (typeof onPaginaPronta === 'function') onPaginaPronta();
+      }
+    })
+    .catch(() => {});
+}
+
+// ================================================================
+// PÁGINA: PERFIL
+// ================================================================
+function onPaginaPronta() {
+  carregarAvatarTopo();
+  carregarConfiguracoes();
+  sincronizarBadge();
+}
+
+function carregarConfiguracoes() {
+  if (!usuarioId) return;
+  apiFetch(API_URL + '/configuracoes?user_id=' + usuarioId)
+    .then(r => r.json())
+    .then(data => preencherPagina(data))
+    .catch(() => mostrarMsg('Erro ao carregar configurações.', 'error'));
+}
+
+function escapeHtml(texto) {
+  if (texto === null || texto === undefined) return '';
+  return String(texto)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function preencherPagina(data) {
+  configAtual = data;
+
+  document.getElementById('setGoogleEmail').innerHTML = `${escapeHtml(data.email) || '—'} <span class="readonly">· conectado</span>`;
+  document.getElementById('setNomeGoogle').textContent = data.nome || '—';
+  const ano = data.data_criacao ? data.data_criacao.split('-')[0] : '';
+  document.getElementById('setMembroDesde').textContent = ano || '—';
+  document.getElementById('setLinkPerfilPublico').innerHTML = `<a href="perfil-publico.html?id=${data.id}" target="_blank" class="btn-outline-terracota"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> Ver perfil público</a>`;
+
+  document.getElementById('campo-nome-exibicao').value = data.nome_exibicao || '';
+  document.getElementById('campo-localizacao').value = data.localizacao || '';
+  document.getElementById('campo-bio').value = data.bio || '';
+  document.getElementById('campo-spotify').value = data.spotify_url || '';
+  document.getElementById('campo-discogs').value = data.discogs_url || '';
+  document.getElementById('campo-instagram').value = data.instagram_url || '';
+
+  selecionarOpcao('optFormato', data.formato_preferido || 'Vinil');
+  selecionarOpcao('optVisualizacao', data.visualizacao_padrao || 'cards');
+
+  ['notif_price_drop', 'notif_wishlist', 'notif_novidades', 'notif_discografia', 'notif_email',
+   'privacidade_perfil_publico', 'privacidade_busca', 'privacidade_valor', 'privacidade_wishlist'].forEach(campo => {
+    const btn = document.querySelector(`.set-toggle[data-campo="${campo}"]`);
+    if (btn) btn.classList.toggle('active', !!data[campo]);
+  });
+}
+
+function selecionarOpcao(grupoId, valor) {
+  const grupo = document.getElementById(grupoId);
+  if (!grupo) return;
+  grupo.querySelectorAll('.opt').forEach(opt => {
+    opt.classList.toggle('active', opt.dataset.valor === valor);
+  });
+}
+
+function mostrarMsg(texto, tipo) {
+  const msg = document.getElementById('setMsg');
+  if (!msg) return;
+  msg.textContent = texto;
+  msg.className = 'set-msg ' + tipo;
+  setTimeout(() => { msg.textContent = ''; msg.className = 'set-msg'; }, 4000);
+}
+
+function coletarConfiguracoes() {
+  const pegarOpcaoAtiva = grupoId => {
+    const ativo = document.querySelector(`#${grupoId} .opt.active`);
+    return ativo ? ativo.dataset.valor : null;
+  };
+  const pegarToggle = campo => {
+    const btn = document.querySelector(`.set-toggle[data-campo="${campo}"]`);
+    return btn ? btn.classList.contains('active') : false;
+  };
+  return {
+    nome_exibicao: document.getElementById('campo-nome-exibicao').value.trim(),
+    localizacao: document.getElementById('campo-localizacao').value.trim(),
+    bio: document.getElementById('campo-bio').value.trim(),
+    spotify_url: document.getElementById('campo-spotify').value.trim(),
+    discogs_url: document.getElementById('campo-discogs').value.trim(),
+    instagram_url: document.getElementById('campo-instagram').value.trim(),
+    formato_preferido: pegarOpcaoAtiva('optFormato'),
+    moeda_preferida: 'BRL',                 // sempre real (seleção removida)
+    marketplace_preferido: 'Discogs',       // sem compra no app por enquanto (seleção removida)
+    visualizacao_padrao: pegarOpcaoAtiva('optVisualizacao'),
+    notif_price_drop: false,                // preço saiu do produto
+    notif_wishlist: pegarToggle('notif_wishlist'),
+    notif_novidades: false,                 // opção removida (não existia envio)
+    notif_discografia: pegarToggle('notif_discografia'),
+    notif_email: pegarToggle('notif_email'),
+    privacidade_perfil_publico: pegarToggle('privacidade_perfil_publico'),
+    privacidade_busca: false,               // opção removida (não existe busca)
+    privacidade_valor: pegarToggle('privacidade_valor'),
+    privacidade_wishlist: pegarToggle('privacidade_wishlist'),
+    tema: 'dark',
+    idioma: 'pt-BR'
+  };
+}
+
+function salvarConfiguracoes() {
+  const btn = document.getElementById('btnSalvarTudo');
+  btn.disabled = true;
+  btn.textContent = 'Salvando...';
+  apiFetch(API_URL + '/configuracoes?user_id=' + usuarioId, {
+    method: 'PUT',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(coletarConfiguracoes())
+  })
+    .then(r => r.json())
+    .then(d => {
+      btn.disabled = false;
+      btn.textContent = 'Salvar alterações';
+      mostrarMsg(d.sucesso ? 'Configurações salvas!' : (d.erro || 'Erro ao salvar.'), d.sucesso ? 'success' : 'error');
+    })
+    .catch(() => {
+      btn.disabled = false;
+      btn.textContent = 'Salvar alterações';
+      mostrarMsg('Erro de conexão.', 'error');
+    });
+}
+
+// ================================================================
+// IMPORTAR CSV (modal) — reaproveita a mesma rota já usada em Importar
+// ================================================================
+function uploadCsv(inputId, statusId, tipo) {
+  const input = document.getElementById(inputId);
+  const status = document.getElementById(statusId);
+  if (!input.files[0]) return Promise.resolve(false);
+  const formData = new FormData();
+  formData.append('tipo', tipo);
+  formData.append('arquivo', input.files[0]);
+  status.textContent = 'Enviando...';
+  return apiFetch(API_URL + '/importar_playlist?user_id=' + usuarioId, { method: 'POST', body: formData })
+    .then(r => r.json())
+    .then(d => {
+      status.innerHTML = d.sucesso ? '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><polyline points="20 6 9 17 4 12"/></svg> Enviado' : (d.erro || 'Erro');
+      return !!d.sucesso;
+    })
+    .catch(() => { status.textContent = 'Erro de conexão'; return false; });
+}
+
+function enviarImportacaoCsv() {
+  const btn = document.getElementById('btnEnviarCsv');
+  const msg = document.getElementById('importCsvMsg');
+  btn.disabled = true;
+  btn.textContent = 'Importando...';
+  msg.textContent = '';
+
+  Promise.all([
+    uploadCsv('csvTop', 'statusCsvTop', 'top'),
+    uploadCsv('csvDesc', 'statusCsvDesc', 'desc'),
+    uploadCsv('csvFav', 'statusCsvFav', 'fav')
+  ]).then(resultados => {
+    const algumEnviado = resultados.some(r => r);
+    btn.disabled = false;
+    btn.textContent = 'Importar arquivos';
+    if (!algumEnviado) {
+      msg.textContent = 'Selecione ao menos um arquivo.';
+      msg.className = 'form-msg error';
+      return;
+    }
+    document.getElementById('modalImportCsv').classList.remove('open');
+    // A geração de recomendações + o Ajuste Fino já existem prontos na
+    // aba Importar — manda pra lá em vez de duplicar essa lógica aqui.
+    window.location.href = 'importar.html';
+  });
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.getElementById('btnSalvarTudo').addEventListener('click', salvarConfiguracoes);
+
+  document.querySelectorAll('.set-selector-row .options').forEach(grupo => {
+    if (grupo.querySelector('.opt.disabled')) return; // aparência: só ilustrativo por enquanto
+    grupo.querySelectorAll('.opt').forEach(opt => {
+      opt.addEventListener('click', function() {
+        grupo.querySelectorAll('.opt').forEach(o => o.classList.remove('active'));
+        this.classList.add('active');
+      });
+    });
+  });
+
+  document.querySelectorAll('.set-toggle').forEach(btn => {
+    btn.addEventListener('click', function() { this.classList.toggle('active'); });
+  });
+
+  document.getElementById('btnAbrirImportCsv').addEventListener('click', function() {
+    document.getElementById('modalImportCsv').classList.add('open');
+  });
+  document.getElementById('btnFecharImportCsv').addEventListener('click', function() {
+    document.getElementById('modalImportCsv').classList.remove('open');
+  });
+  document.getElementById('btnEnviarCsv').addEventListener('click', enviarImportacaoCsv);
+
+  document.getElementById('btnExportarCsv').addEventListener('click', function() {
+    window.location.href = API_URL + '/exportar_colecao?user_id=' + usuarioId;
+  });
+  document.getElementById('btnBackup').addEventListener('click', function() {
+    window.location.href = API_URL + '/backup_dados?user_id=' + usuarioId;
+  });
+
+  document.getElementById('inputRestaurarBackup').addEventListener('change', function() {
+    const arquivo = this.files[0];
+    if (!arquivo) return;
+    const status = document.getElementById('statusRestaurarBackup');
+    const label = document.getElementById('btnRestaurarBackupLabel');
+    label.disabled = true;
+    label.textContent = 'Restaurando...';
+    status.textContent = '';
+
+    const formData = new FormData();
+    formData.append('arquivo', arquivo);
+
+    apiFetch(API_URL + '/restaurar_backup?user_id=' + usuarioId, { method: 'POST', body: formData })
+      .then(r => r.json())
+      .then(d => {
+        label.disabled = false;
+        label.textContent = 'Escolher arquivo';
+        this.value = '';
+        if (d.sucesso) {
+          status.textContent = '' + d.mensagem;
+          status.style.color = 'var(--terracotta)';
+        } else {
+          status.textContent = '' + (d.erro || 'Erro ao restaurar.');
+        }
+      })
+      .catch(() => {
+        label.disabled = false;
+        label.textContent = 'Escolher arquivo';
+        status.textContent = 'Erro de conexão.';
+      });
+  });
+
+  document.getElementById('btnLimparImportados').addEventListener('click', function() {
+    abrirConfirm('Limpar todos os dados de playlists importadas? A coleção e a wishlist não são afetadas.', function() {
+      apiFetch(API_URL + '/zerar_playlists?user_id=' + usuarioId, { method: 'DELETE' })
+        .then(r => r.json())
+        .then(d => mostrarMsg(d.sucesso ? 'Dados importados limpos!' : (d.erro || 'Erro.'), d.sucesso ? 'success' : 'error'))
+        .catch(() => mostrarMsg('Erro de conexão.', 'error'));
+    });
+  });
+
+  document.getElementById('btnZerarColecao').addEventListener('click', function() {
+    abrirConfirm('Apagar TODOS os discos da sua coleção física? Essa ação é permanente.', function() {
+      apiFetch(API_URL + '/zerar_colecao?user_id=' + usuarioId, { method: 'DELETE' })
+        .then(r => r.json())
+        .then(d => mostrarMsg(d.sucesso ? 'Coleção zerada!' : (d.erro || 'Erro.'), d.sucesso ? 'success' : 'error'))
+        .catch(() => mostrarMsg('Erro de conexão.', 'error'));
+    });
+  });
+
+  document.getElementById('btnZerarWishlist').addEventListener('click', function() {
+    abrirConfirm('Apagar toda a sua wishlist atual? Essa ação é permanente.', function() {
+      apiFetch(API_URL + '/zerar_wishlist?user_id=' + usuarioId, { method: 'DELETE' })
+        .then(r => r.json())
+        .then(d => mostrarMsg(d.sucesso ? 'Wishlist zerada!' : (d.erro || 'Erro.'), d.sucesso ? 'success' : 'error'))
+        .catch(() => mostrarMsg('Erro de conexão.', 'error'));
+    });
+  });
+
+  document.getElementById('btnZerarTudo').addEventListener('click', function() {
+    abrirConfirm('<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>️ Isso apaga playlists, coleção E wishlist de uma vez. Seu perfil (bio, foto, preferências) é mantido. Essa ação é permanente. Confirmar?', function() {
+      apiFetch(API_URL + '/zerar_tudo?user_id=' + usuarioId, { method: 'DELETE' })
+        .then(r => r.json())
+        .then(d => mostrarMsg(d.sucesso ? 'Tudo zerado! Pode começar a importar de novo.' : (d.erro || 'Erro.'), d.sucesso ? 'success' : 'error'))
+        .catch(() => mostrarMsg('Erro de conexão.', 'error'));
+    });
+  });
+
+  document.getElementById('btnResetarPrefs').addEventListener('click', function() {
+    abrirConfirm('Restaurar todas as preferências desta página para o padrão?', function() {
+      apiFetch(API_URL + '/configuracoes/resetar?user_id=' + usuarioId, { method: 'POST' })
+        .then(r => r.json())
+        .then(d => {
+          mostrarMsg(d.sucesso ? 'Preferências restauradas!' : (d.erro || 'Erro.'), d.sucesso ? 'success' : 'error');
+          if (d.sucesso) carregarConfiguracoes();
+        })
+        .catch(() => mostrarMsg('Erro de conexão.', 'error'));
+    });
+  });
+
+  document.getElementById('btnDesconectarTudo').addEventListener('click', function() {
+    abrirConfirm('Nenhum serviço está conectado ainda (login direto com Spotify/Discogs não existe). Não há nada pra desconectar.', function() {});
+  });
+
+  document.getElementById('btnLogout').addEventListener('click', function() {
+    abrirConfirm('Sair da sua conta?', function() {
+      apiFetch(API_URL + '/logout', { method: 'POST' })
+        .then(() => {
+          localStorage.removeItem('discoteca_user_id');
+          localStorage.removeItem('discoteca_user_nome');
+          window.location.href = 'index.html';
+        })
+        .catch(() => {
+          localStorage.removeItem('discoteca_user_id');
+          localStorage.removeItem('discoteca_user_nome');
+          window.location.href = 'index.html';
+        });
+    });
+  });
+
+  document.getElementById('btnExcluirConta').addEventListener('click', function() {
+    abrirConfirm('Excluir sua conta apaga TUDO permanentemente: coleção, wishlist e perfil. Essa ação não pode ser desfeita. Confirmar?', function() {
+      apiFetch(API_URL + '/excluir_conta?user_id=' + usuarioId, { method: 'DELETE' })
+        .then(r => r.json())
+        .then(d => {
+          if (d.sucesso) {
+            limparSessao();
+            window.location.href = 'index.html';
+          } else {
+            mostrarMsg(d.erro || 'Erro ao excluir conta.', 'error');
+          }
+        })
+        .catch(() => mostrarMsg('Erro de conexão.', 'error'));
+    });
+  });
+
+  verificarSessao();
+});
+  </script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+  <script src="onboarding.js?v=1"></script>
+</body>
+</html>

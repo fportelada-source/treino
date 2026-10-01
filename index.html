@@ -1,867 +1,896 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Treino 4x Semana</title>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --bg: #0a0a0f; --surface: #12121a; --surface2: #1a1a26; --border: #2a2a3d;
-    --accent: #f0b429; --accent2: #e05c2a; --green: #22c55e; --blue: #3b82f6;
-    --red: #ef4444; --text: #f0f0f8; --muted: #888899; --r: 14px;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { background: var(--bg); color: var(--text); font-family: 'Barlow', sans-serif; min-height: 100vh; overflow-x: hidden; }
-
-  .header { background: linear-gradient(135deg, #0a0a0f 0%, #1a1020 100%); border-bottom: 1px solid var(--border); padding: 20px 20px 0; position: sticky; top: 0; z-index: 100; backdrop-filter: blur(12px); }
-  .header-top { display: flex; align-items: center; justify-content: space-between; margin-bottom: 16px; }
-  .logo { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 22px; letter-spacing: 1px; text-transform: uppercase; }
-  .logo span { color: var(--accent); }
-  .badge { display: flex; align-items: center; gap: 8px; background: var(--surface2); border: 1px solid var(--border); border-radius: 999px; padding: 6px 12px; font-size: 12px; font-weight: 600; color: var(--muted); }
-  .badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); box-shadow: 0 0 6px var(--green); }
-  .tab-nav { display: flex; gap: 4px; overflow-x: auto; scrollbar-width: none; }
-  .tab-nav::-webkit-scrollbar { display: none; }
-  .tab-btn { flex-shrink: 0; padding: 10px 16px 14px; background: none; border: none; cursor: pointer; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; letter-spacing: 0.5px; text-transform: uppercase; color: var(--muted); border-bottom: 3px solid transparent; transition: all 0.2s; white-space: nowrap; }
-  .tab-btn.active { color: var(--text); border-bottom-color: var(--accent); }
-  .tab-btn:hover:not(.active) { color: var(--text); }
-
-  .content { padding: 20px 16px 100px; max-width: 600px; margin: 0 auto; }
-  .tab-content { display: none; }
-  .tab-content.active { display: block; animation: fadeIn 0.25s ease; }
-  @keyframes fadeIn { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: translateY(0); } }
-
-  .section-title { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 32px; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; line-height: 1; }
-  .section-sub { font-size: 13px; color: var(--muted); margin-bottom: 20px; font-weight: 500; }
-  .accent { color: var(--accent); }
-
-  /* CARDS */
-  .card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 16px; margin-bottom: 12px; }
-  .card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--accent); margin-bottom: 10px; }
-  .row { display: flex; align-items: flex-start; gap: 10px; padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 14px; }
-  .row:last-child { border-bottom: none; }
-  .icon-box { width: 24px; height: 24px; border-radius: 6px; display: flex; align-items: center; justify-content: center; font-size: 13px; flex-shrink: 0; margin-top: 1px; }
-  .y { background: rgba(240,180,41,.15); color: var(--accent); }
-  .g { background: rgba(34,197,94,.15); color: var(--green); }
-  .b { background: rgba(59,130,246,.15); color: var(--blue); }
-  .o { background: rgba(224,92,42,.15); color: var(--accent2); }
-  .row-text { color: var(--muted); line-height: 1.6; }
-  .row-text strong { color: var(--text); font-weight: 600; }
-
-  /* BANNER */
-  .banner { background: linear-gradient(135deg, rgba(240,180,41,.12), rgba(224,92,42,.08)); border: 1px solid rgba(240,180,41,.3); border-radius: var(--r); padding: 14px 16px; margin-bottom: 20px; display: flex; align-items: center; gap: 12px; }
-  .banner .bi { font-size: 28px; flex-shrink: 0; }
-  .banner h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 15px; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); }
-  .banner p { font-size: 13px; color: var(--muted); margin-top: 2px; }
-  .pill { margin-left: auto; background: rgba(240,180,41,.15); border: 1px solid rgba(240,180,41,.3); border-radius: 999px; padding: 4px 10px; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 13px; color: var(--accent); white-space: nowrap; flex-shrink: 0; }
-
-  /* EXERCISE */
-  .ex-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); margin-bottom: 10px; overflow: hidden; transition: border-color .2s; }
-  .ex-card:hover { border-color: rgba(240,180,41,.4); }
-  .ex-head { display: flex; align-items: center; padding: 14px 16px; cursor: pointer; gap: 12px; user-select: none; }
-  .ex-num { width: 28px; height: 28px; border-radius: 8px; background: var(--surface2); border: 1px solid var(--border); display: flex; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; color: var(--accent); flex-shrink: 0; }
-  .ex-info { flex: 1; min-width: 0; }
-  .ex-name { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; text-transform: uppercase; letter-spacing: .3px; line-height: 1.2; }
-  .ex-tags { display: flex; gap: 6px; margin-top: 5px; flex-wrap: wrap; }
-  .tag { font-size: 11px; font-weight: 600; border-radius: 4px; padding: 2px 7px; text-transform: uppercase; letter-spacing: .3px; }
-  .ts { background: rgba(59,130,246,.15); color: var(--blue); }
-  .tr { background: rgba(34,197,94,.15); color: var(--green); }
-  .ex-arr { font-size: 18px; color: var(--muted); transition: transform .25s; flex-shrink: 0; }
-  .ex-card.open .ex-arr { transform: rotate(90deg); color: var(--accent); }
-  .ex-body { display: none; padding: 0 16px 16px; border-top: 1px solid var(--border); }
-  .ex-card.open .ex-body { display: block; }
-
-  /* WEIGHT GRID */
-  .wgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 12px; }
-  .wbox { background: var(--surface2); border-radius: 10px; padding: 10px 12px; border: 1px solid var(--border); }
-  .wbox .wl { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 4px; }
-  .wbox .wv { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 20px; color: var(--text); line-height: 1; }
-  .wbox.ideal { border-color: rgba(240,180,41,.3); }
-  .wbox.ideal .wv { color: var(--accent); }
-
-  /* NOTES */
-  .notes { margin-top: 10px; background: rgba(59,130,246,.06); border: 1px solid rgba(59,130,246,.2); border-radius: 8px; padding: 10px 12px; }
-  .notes .nt { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--blue); margin-bottom: 6px; }
-  .notes ul { list-style: none; }
-  .notes li { font-size: 13px; color: #aabbd0; padding: 2px 0; display: flex; gap: 6px; line-height: 1.5; }
-  .notes li::before { content: '→'; color: var(--blue); flex-shrink: 0; }
-
-  /* GIF SECTION */
-  .gif-btn { display: flex; align-items: center; gap: 10px; margin-top: 12px; background: rgba(240,180,41,.07); border: 1px solid rgba(240,180,41,.25); border-radius: 10px; padding: 10px 14px; cursor: pointer; transition: background .2s; width: 100%; text-align: left; }
-  .gif-btn:hover { background: rgba(240,180,41,.14); }
-  .gif-btn .gi { font-size: 18px; flex-shrink: 0; }
-  .gif-btn .gt { font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 14px; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); }
-  .gif-btn .gs { font-size: 11px; color: var(--muted); }
-  .gif-btn .ga { margin-left: auto; font-size: 14px; color: var(--muted); transition: transform .25s; flex-shrink: 0; }
-  .gif-btn.open .ga { transform: rotate(180deg); }
-
-  .gif-wrap { display: none; margin-top: 10px; border-radius: 10px; overflow: hidden; background: var(--surface2); border: 1px solid var(--border); }
-  .gif-wrap.open { display: block; }
-  .gif-wrap img { width: 100%; display: block; border-radius: 10px; }
-  .gif-wrap .gif-credit { font-size: 10px; color: var(--muted); padding: 4px 10px 6px; text-align: center; }
-
-  /* CARDIO */
-  .cardio-sec { background: linear-gradient(135deg, rgba(34,197,94,.08), rgba(59,130,246,.05)); border: 1px solid rgba(34,197,94,.2); border-radius: var(--r); padding: 16px; margin-top: 20px; }
-  .cardio-sec h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; color: var(--green); margin-bottom: 8px; }
-  .cardio-sec p { font-size: 14px; color: var(--muted); }
-
-  /* OVERVIEW */
-  .ogrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 20px; }
-  .ocard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
-  .ocard .ol { font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: .5px; color: var(--muted); margin-bottom: 6px; }
-  .ocard .ov { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 26px; line-height: 1; }
-  .ocard .os { font-size: 12px; color: var(--muted); margin-top: 3px; }
-
-  .wk-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 20px; }
-  .day { aspect-ratio: 1; border-radius: 8px; display: flex; flex-direction: column; align-items: center; justify-content: center; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 10px; text-transform: uppercase; gap: 2px; }
-  .day .de { font-size: 16px; }
-  .day.train { background: rgba(240,180,41,.12); border: 1px solid rgba(240,180,41,.3); color: var(--accent); }
-  .day.rest { background: var(--surface); border: 1px solid var(--border); color: var(--muted); }
-  .day.opt { background: rgba(59,130,246,.1); border: 1px solid rgba(59,130,246,.25); color: var(--blue); }
-
-  .pgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 16px; }
-  .pcard { background: var(--surface); border: 1px solid var(--border); border-radius: var(--r); padding: 14px; }
-  .pcard h4 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 13px; text-transform: uppercase; letter-spacing: .5px; color: var(--accent); margin-bottom: 8px; }
-  .pcard li { font-size: 13px; color: var(--muted); padding: 3px 0; list-style: none; display: flex; gap: 6px; }
-  .pcard li::before { content: '✓'; color: var(--green); flex-shrink: 0; }
-
-  .knee-card { background: linear-gradient(135deg, rgba(239,68,68,.08), rgba(224,92,42,.05)); border: 1px solid rgba(239,68,68,.2); border-radius: var(--r); padding: 16px; margin-bottom: 14px; }
-  .knee-card h3 { font-family: 'Barlow Condensed', sans-serif; font-weight: 800; font-size: 14px; text-transform: uppercase; color: var(--red); margin-bottom: 10px; }
-  .klist li { list-style: none; font-size: 13px; color: var(--muted); padding: 3px 0; display: flex; gap: 6px; }
-  .klist.avoid li::before { content: '✗'; color: var(--red); flex-shrink: 0; }
-  .klist.good li::before { content: '✓'; color: var(--green); flex-shrink: 0; }
-
-  .circ-item { display: flex; align-items: center; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 12px 14px; margin-bottom: 8px; gap: 12px; }
-  .circ-em { font-size: 22px; flex-shrink: 0; }
-  .circ-nm { flex: 1; font-family: 'Barlow Condensed', sans-serif; font-weight: 700; font-size: 17px; text-transform: uppercase; }
-  .circ-rp { font-size: 13px; font-weight: 600; color: var(--accent); background: rgba(240,180,41,.1); border-radius: 6px; padding: 4px 10px; flex-shrink: 0; }
-
-  .rbadge { display: flex; align-items: center; gap: 6px; background: var(--surface2); border: 1px solid var(--border); border-radius: 8px; padding: 6px 10px; font-size: 12px; font-weight: 600; color: var(--muted); }
-  .rbadge .rd { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); }
-  .rbadges { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 12px; margin-bottom: 14px; }
-
-  .tip { background: rgba(34,197,94,.07); border-left: 3px solid var(--green); border-radius: 0 8px 8px 0; padding: 10px 12px; font-size: 13px; color: var(--muted); margin-top: 10px; line-height: 1.6; }
-  .tip strong { color: var(--text); }
-  .divider { height: 1px; background: var(--border); margin: 18px 0; }
-  .bottom-fade { position: fixed; bottom: 0; left: 0; right: 0; background: linear-gradient(to top, var(--bg) 70%, transparent); height: 60px; pointer-events: none; }
-</style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Discoteca — Início</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,400;0,500;0,600;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css?v=27" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#0b0b0b" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico?v=2" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png?v=2" />
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png?v=2" />
+<link rel="apple-touch-icon" href="apple-touch-icon.png?v=2" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="Discoteca" />
 </head>
 <body>
 
-<div class="header">
-  <div class="header-top">
-    <div class="logo">TREINO <span>4×</span></div>
-    <div class="badge"><div class="dot"></div>120kg · 30% BF · 1,75m</div>
+  <!-- ===== LOGIN ===== -->
+  <div id="loginScreen" class="lg">
+    <header class="lg-top">
+      <div class="app-nav-logo">D<span>iscoteca</span></div>
+      <div class="lg-tag">Mídia física · inteligência digital</div>
+    </header>
+    <main class="lg-grid">
+      <section>
+        <div class="page-eyebrow">Bem-vindo de volta</div>
+        <h1 class="lg-title">Sua coleção <span class="accent">está esperando.</span></h1>
+        <p class="lg-lede">Um companheiro pra sua coleção física. Seu gosto, sua estante, sua próxima compra.</p>
+        <div class="lg-pilares">
+          <div class="lg-pilar"><span class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></span><div><strong>Coleção</strong><span>Cada disco que você tem, com formato, condição e capa.</span></div></div>
+          <div class="lg-pilar"><span class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></span><div><strong>Wishlist priorizada</strong><span>Recomendações a partir do que você ouve, com o porquê de cada uma.</span></div></div>
+          <div class="lg-pilar"><span class="ico"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></span><div><strong>Audições</strong><span>O diário do que realmente tocou na vitrola.</span></div></div>
+        </div>
+      </section>
+      <section class="lg-stack" aria-label="Entrar">
+        <div class="layer"></div><div class="layer"></div>
+        <div class="lg-card">
+          <div class="lg-disc-area" aria-hidden="true"><div class="lg-disc"></div></div>
+          <div class="lg-body">
+            <h2>Entrar</h2>
+            <p class="lg-sub">Acesse sua coleção e recomendações.</p>
+            <button class="login-btn" id="btnLogin" type="button"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92a5.06 5.06 0 0 1-2.2 3.32v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.1z"/><path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/><path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/><path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg> Entrar com Google</button>
+            <div id="loginError" class="login-error" role="alert">Erro ao fazer login. Tente novamente.</div>
+          </div>
+        </div>
+      </section>
+    </main>
   </div>
-  <nav class="tab-nav">
-    <button class="tab-btn active" onclick="tab('visao',this)">Visão Geral</button>
-    <button class="tab-btn" onclick="tab('upperA',this)">Upper A</button>
-    <button class="tab-btn" onclick="tab('lowerA',this)">Lower A</button>
-    <button class="tab-btn" onclick="tab('upperB',this)">Upper B</button>
-    <button class="tab-btn" onclick="tab('lowerB',this)">Lower B</button>
-    <button class="tab-btn" onclick="tab('coringa',this)">Coringa</button>
-    <button class="tab-btn" onclick="tab('regras',this)">Regras</button>
-  </nav>
-</div>
+  <!-- ===== APP ===== -->
+  <div id="appScreen" style="display:none;">
+    <div class="app-shell">
 
-<div class="content">
+      <!-- SIDEBAR -->
+      <header class="app-nav">
+        <a href="index.html" class="app-nav-logo" aria-label="Discoteca — Início">D<span>iscoteca</span></a>
+        <nav class="app-nav-links" aria-label="Navegação principal">
+          <a href="index.html" class="active" aria-current="page"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><span class="lbl">Início</span></a>
+          <a href="colecao.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><span class="lbl">Coleção</span></a>
+          <a href="wishlist.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg><span class="lbl">Wishlist</span><span class="badge-count" id="navWishlistCount" style="display:none;">0</span></a>
+          <a href="audicoes.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg><span class="lbl">Audições</span></a>
+          <a href="radar-musical.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="5"/><circle cx="12" cy="12" r="1"/><line x1="12" y1="3" x2="12" y2="7"/></svg><span class="lbl">Radar Musical</span></a>
+          <a href="estatisticas.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg><span class="lbl">Estatísticas</span></a>
+          <a href="importar.html"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg><span class="lbl">Importar</span></a>
+        </nav>
+        <div class="app-nav-right">
+          <a href="perfil.html" class="app-nav-icon" title="Configurações" aria-label="Configurações"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg></a>
+          <a href="perfil.html" class="user app-nav-user" aria-label="Seu perfil"><span class="avatar" id="userAvatar">?</span><span class="name" id="userNameDisplay">Carregando...</span></a>
+        </div>
+      </header>
 
-<!-- VISÃO GERAL -->
-<div class="tab-content active" id="tab-visao">
-  <div class="section-title">Sua <span class="accent">Semana</span></div>
-  <div class="section-sub">Estrutura semanal de treino</div>
-  <div class="wk-grid">
-    <div class="day train"><div class="de">💪</div>Seg<br>Upper A</div>
-    <div class="day train"><div class="de">🦵</div>Ter<br>Lower A</div>
-    <div class="day rest"><div class="de">😴</div>Qua<br>Desc.</div>
-    <div class="day train"><div class="de">💪</div>Qui<br>Upper B</div>
-    <div class="day train"><div class="de">🦵</div>Sex<br>Lower B</div>
-    <div class="day opt"><div class="de">⭐</div>Sáb<br>Coringa</div>
-    <div class="day rest"><div class="de">🛌</div>Dom<br>Desc.</div>
-  </div>
-  <div class="ogrid">
-    <div class="ocard"><div class="ol">Duração</div><div class="ov" style="color:var(--accent)">50–65</div><div class="os">minutos</div></div>
-    <div class="ocard"><div class="ol">Meta cardio</div><div class="ov" style="color:var(--green)">150+</div><div class="os">min/semana</div></div>
-    <div class="ocard"><div class="ol">Dias de treino</div><div class="ov" style="color:var(--blue)">4×</div><div class="os">semana</div></div>
-    <div class="ocard"><div class="ol">Objetivo</div><div class="ov" style="font-size:16px;padding-top:4px">🔥 Queima</div><div class="os">+ definição</div></div>
-  </div>
-  <div class="banner"><div class="bi">🚴</div><div><h4>Cardio — Prioridade Máxima</h4><p>Bicicleta › Caminhada inclinada › Sem corrida</p></div><div class="pill">20 min</div></div>
-  <div class="card">
-    <h3>📈 Sinais de progresso</h3>
-    <div class="row"><div class="icon-box g">😤</div><div class="row-text"><strong>Mais disposição</strong> no dia a dia</div></div>
-    <div class="row"><div class="icon-box b">💧</div><div class="row-text"><strong>Suor mais fácil</strong> — sinal de condicionamento</div></div>
-    <div class="row"><div class="icon-box g">⚡</div><div class="row-text"><strong>Recuperação melhor</strong> entre sessões</div></div>
-    <div class="row"><div class="icon-box y">👕</div><div class="row-text"><strong>Roupas ficando mais largas</strong></div></div>
-    <div class="row"><div class="icon-box o">📈</div><div class="row-text"><strong>Cargas subindo</strong> lentamente</div></div>
-  </div>
-  <div class="tip"><strong>Lembre-se:</strong> Peso na balança é só UMA métrica. Fotos e medidas importam muito mais.</div>
-  <div class="divider"></div>
-  <div class="section-title" style="font-size:22px;margin-bottom:12px">Progressão <span class="accent">Realista</span></div>
-  <div class="pgrid">
-    <div class="pcard"><h4>0–3 meses</h4><ul><li>Consistência</li><li>Adaptação articular</li><li>Aprender execução</li><li>Melhorar cardio</li></ul></div>
-    <div class="pcard"><h4>3–6 meses</h4><ul><li>Gordura visível</li><li>Ganho muscular</li><li>Condicionamento ↑↑</li><li>Cargas subindo</li></ul></div>
-  </div>
-</div>
+      <!-- MAIN -->
+      <div class="app-main">
 
-<!-- UPPER A -->
-<div class="tab-content" id="tab-upperA">
-  <div class="section-title">Upper <span class="accent">A</span></div>
-  <div class="section-sub">Segunda-feira · 50–65 min</div>
-  <div class="rbadges"><div class="rbadge"><div class="rd"></div>Grandes: 90s</div><div class="rbadge"><div class="rd" style="background:var(--blue)"></div>Isolados: 45–60s</div></div>
+        <!-- DASHBOARD -->
+        <div class="dash" id="dashContent">
+          <div style="opacity:0.4; font-size:13px;">Carregando seu painel...</div>
+        </div>
 
-  <!-- macro para gerar exercícios -->
-
-  <!-- 1 -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">1</div>
-      <div class="ex-info"><div class="ex-name">Supino reto c/ halteres</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">8–10 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–12 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8–9 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Supino com halteres</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bench_Press/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bench_Press/0.jpg" alt="Supino reto com halteres" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
       </div>
     </div>
-  </div>
+  </div><!-- /appScreen -->
 
-  <!-- 2 -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">2</div>
-      <div class="ex-info"><div class="ex-name">Puxador frontal</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">10–12 reps</span></div></div>
-      <div class="ex-arr">›</div>
+  <footer class="app-footer">
+    <div class="app-footer-grid">
+      <div class="app-footer-brand"><div class="app-nav-logo">D<span>iscoteca</span></div><p>Sua coleção, suas recomendações.</p></div>
+      <div class="app-footer-col"><h5>Navegar</h5><a href="colecao.html">Coleção</a><a href="wishlist.html">Wishlist</a><a href="audicoes.html">Audições</a></div>
+      <div class="app-footer-col"><h5>Inteligência</h5><a href="radar-musical.html">Radar Musical</a><a href="estatisticas.html">Estatísticas</a><a href="importar.html">Importar</a></div>
+      <div class="app-footer-col"><h5>Conta</h5><a href="perfil.html">Perfil e configurações</a></div>
     </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Puxador frontal</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Close-Grip_Front_Lat_Pulldown/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Close-Grip_Front_Lat_Pulldown/0.jpg" alt="Puxador frontal" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
+  </footer>
 
-  <!-- 3 -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">3</div>
-      <div class="ex-info"><div class="ex-name">Supino Crossover</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Crossover peitoral</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/0.jpg" alt="Crossover" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
+  <script>
+// ================================================================
+// CONFIGURAÇÕES
+// ================================================================
+const API_URL = 'https://fportelada.pythonanywhere.com';
 
-  <!-- 4 -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">4</div>
-      <div class="ex-info"><div class="ex-name">Remada baixa</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">10–12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Remada sentada</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/0.jpg" alt="Remada baixa" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
 
-  <!-- 5 -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">5</div>
-      <div class="ex-info"><div class="ex-name">Desenvolvimento sentado</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">10 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">8 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">6 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Desenvolvimento halteres</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Dumbbell_Press/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Dumbbell_Press/0.jpg" alt="Desenvolvimento halteres" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 6 -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">6</div>
-      <div class="ex-info"><div class="ex-name">Tríceps corda</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12–15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">25–30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">20 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Tríceps corda</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/0.jpg" alt="Tríceps corda" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- 7 -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">7</div>
-      <div class="ex-info"><div class="ex-name">Rosca direta halteres</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">8–9 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">6 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Rosca direta</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg" alt="Rosca direta halteres" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cardio-sec"><h3>🚴 Cardio pós-treino</h3><p>Bicicleta ergométrica · 15–20 min · Intensidade moderada</p></div>
-</div>
-
-<!-- LOWER A -->
-<div class="tab-content" id="tab-lowerA">
-  <div class="section-title">Lower <span class="accent">A</span></div>
-  <div class="section-sub">Terça-feira · 50–65 min</div>
-  <div class="rbadges"><div class="rbadge"><div class="rd"></div>Grandes: 90s</div><div class="rbadge"><div class="rd" style="background:var(--blue)"></div>Isolados: 45–60s</div></div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">1</div>
-      <div class="ex-info"><div class="ex-name">Leg Press</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">35 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25–30 kg</div></div></div>
-      <div class="notes"><div class="nt">⚠️ Técnica — Joelho</div><ul><li>Pés mais altos na plataforma</li><li>Não descer demais</li><li>Movimento controlado</li><li>Sem tirar lombar do banco</li></ul></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Leg Press</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg" alt="Leg Press" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">2</div>
-      <div class="ex-info"><div class="ex-name">Stiff c/ halteres</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–12 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
-      <div class="notes"><div class="nt">⚠️ Substituição · Mesa flexora indisponível</div><ul><li>Mantenha as costas retas — não arqueie</li><li>Desça até sentir alongamento no posterior</li><li>Movimento lento e controlado</li></ul></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Stiff / RDL halteres</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg" alt="Stiff halteres" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">3</div>
-      <div class="ex-info"><div class="ex-name">Cadeira extensora</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">15–20 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">10–15 kg</div></div></div>
-      <div class="notes"><div class="nt">⚠️ Técnica — Joelho</div><ul><li>Movimento lento</li><li>Sem "chutar"</li><li>Foque na contração</li></ul></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Cadeira extensora</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Extensions/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Extensions/0.jpg" alt="Cadeira extensora" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">4</div>
-      <div class="ex-info"><div class="ex-name">Abdutora</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">40 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">30 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Abdutora máquina</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Abductor/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Abductor/0.jpg" alt="Abdutora" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">5</div>
-      <div class="ex-info"><div class="ex-name">Adutora</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">40 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">30 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Adutora máquina</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Adductor/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Adductor/0.jpg" alt="Adutora" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">6</div>
-      <div class="ex-info"><div class="ex-name">Panturrilha no leg press</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">20 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">10–15 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Panturrilha</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg" alt="Panturrilha" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cardio-sec"><h3>🚴 Cardio pós-treino</h3><p>Bicicleta · 20–25 min</p></div>
-</div>
-
-<!-- UPPER B -->
-<div class="tab-content" id="tab-upperB">
-  <div class="section-title">Upper <span class="accent">B</span></div>
-  <div class="section-sub">Quinta-feira · 50–65 min</div>
-  <div class="rbadges"><div class="rbadge"><div class="rd"></div>Grandes: 90s</div><div class="rbadge"><div class="rd" style="background:var(--blue)"></div>Isolados: 45–60s</div></div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">1</div>
-      <div class="ex-info"><div class="ex-name">Supino inclinado halteres</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">10 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Supino inclinado</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Press/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Incline_Dumbbell_Press/0.jpg" alt="Supino inclinado halteres" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">2</div>
-      <div class="ex-info"><div class="ex-name">Remada unilateral halter</div><div class="ex-tags"><span class="tag ts">4 séries</span><span class="tag tr">10 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–12 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Remada unilateral</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Two-Dumbbell_Row/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Bent_Over_Two-Dumbbell_Row/0.jpg" alt="Remada unilateral" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">3</div>
-      <div class="ex-info"><div class="ex-name">Crossover baixo → cima</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12–15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">20–25 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">15–20 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Crossover</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/0.jpg" alt="Crossover baixo cima" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">4</div>
-      <div class="ex-info"><div class="ex-name">Puxada neutra</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">30 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">25 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Puxada neutra</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Close-Grip_Front_Lat_Pulldown/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Close-Grip_Front_Lat_Pulldown/0.jpg" alt="Puxada neutra" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">5</div>
-      <div class="ex-info"><div class="ex-name">Elevação lateral</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">5–6 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">4 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Elevação lateral</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Side_Lateral_Raise/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Side_Lateral_Raise/0.jpg" alt="Elevação lateral" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">6</div>
-      <div class="ex-info"><div class="ex-name">Tríceps francês halter</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">8–10 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">6 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Tríceps francês</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Dumbbell_Tricep_Extension/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Lying_Dumbbell_Tricep_Extension/0.jpg" alt="Tríceps francês" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">7</div>
-      <div class="ex-info"><div class="ex-name">Rosca martelo</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">8–10 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">6 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Rosca martelo</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hammer_Curls/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Hammer_Curls/0.jpg" alt="Rosca martelo" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cardio-sec"><h3>🚶 Cardio pós-treino</h3><p>Caminhada inclinada leve · 10–15 min · Sem correr</p></div>
-</div>
-
-<!-- LOWER B -->
-<div class="tab-content" id="tab-lowerB">
-  <div class="section-title">Lower <span class="accent">B</span></div>
-  <div class="section-sub">Sexta-feira · 50–65 min</div>
-  <div class="rbadges"><div class="rbadge"><div class="rd"></div>Grandes: 90s</div><div class="rbadge"><div class="rd" style="background:var(--blue)"></div>Isolados: 45–60s</div></div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">1</div>
-      <div class="ex-info"><div class="ex-name">Leg Press unilateral</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">15–20 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">Peso máq.</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Leg Press</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg" alt="Leg Press unilateral" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">2</div>
-      <div class="ex-info"><div class="ex-name">Stiff c/ halteres</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">10–12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Stiff / RDL</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg" alt="Stiff halteres" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">3</div>
-      <div class="ex-info"><div class="ex-name">Stiff c/ halteres</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">12 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–12 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">8 kg</div></div></div>
-      <div class="notes"><div class="nt">⚠️ Substituição · Mesa flexora indisponível</div><ul><li>Mantenha as costas retas — não arqueie</li><li>Desça até sentir alongamento no posterior</li><li>Movimento lento e controlado</li></ul></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Stiff / RDL halteres</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg" alt="Stiff halteres" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">4</div>
-      <div class="ex-info"><div class="ex-name">Extensora leve</div><div class="ex-tags"><span class="tag ts">2 séries</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">10–15 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">Carga leve</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Extensora</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Extensions/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Extensions/0.jpg" alt="Extensora" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">5</div>
-      <div class="ex-info"><div class="ex-name">Abdutora</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Peso ideal</div><div class="wv">40 kg</div></div><div class="wbox"><div class="wl">Progressão</div><div class="wv">30 kg</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Abdutora</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Abductor/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Abductor/0.jpg" alt="Abdutora" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">6</div>
-      <div class="ex-info"><div class="ex-name">Prancha</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">30–45 seg</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Intensidade</div><div class="wv">Corporal</div></div><div class="wbox"><div class="wl">Regressão</div><div class="wv">Joelhos</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Prancha</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg" alt="Prancha" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">7</div>
-      <div class="ex-info"><div class="ex-name">Dead Bug</div><div class="ex-tags"><span class="tag ts">3 séries</span><span class="tag tr">10 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Intensidade</div><div class="wv">Corporal</div></div><div class="wbox"><div class="wl">Regressão</div><div class="wv">Mov. reduzido</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Dead Bug core</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Plank/0.jpg" alt="Dead Bug" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="cardio-sec"><h3>🚴 Cardio pós-treino</h3><p>Bicicleta · 20 min</p></div>
-</div>
-
-<!-- CORINGA -->
-<div class="tab-content" id="tab-coringa">
-  <div class="section-title">Treino <span class="accent">Coringa</span></div>
-  <div class="section-sub">Sábado opcional · Circuito 3–5 voltas</div>
-  <div class="banner"><div class="bi">⚡</div><div><h4>Objetivo do dia</h4><p>Gasto calórico · Condicionamento · Recuperação ativa</p></div></div>
-  <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:14px">
-    <div class="section-title" style="font-size:18px;margin:0">Circuito</div>
-    <div class="pill">30–45s descanso</div>
-  </div>
-
-  <!-- Bicicleta -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">🚴</div>
-      <div class="ex-info"><div class="ex-name">Bicicleta</div><div class="ex-tags"><span class="tag ts">Cardio</span><span class="tag tr">2 min</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Duração</div><div class="wv">2 min</div></div><div class="wbox"><div class="wl">Intensidade</div><div class="wv">Moderada</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Bicicleta ergométrica</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Leg_Press/0.jpg" alt="Bicicleta ergométrica" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Supino Crossover -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">🔀</div>
-      <div class="ex-info"><div class="ex-name">Supino Crossover</div><div class="ex-tags"><span class="tag ts">Peitoral</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">15</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Leve</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Crossover peitoral</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Cable_Crossover/0.jpg" alt="Crossover" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Remada -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">🤜</div>
-      <div class="ex-info"><div class="ex-name">Remada</div><div class="ex-tags"><span class="tag ts">Costas</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">15</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Leve</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Remada sentada</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Seated_Cable_Rows/0.jpg" alt="Remada" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Abdutora -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">🦵</div>
-      <div class="ex-info"><div class="ex-name">Abdutora</div><div class="ex-tags"><span class="tag ts">Glúteo</span><span class="tag tr">20 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">20</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Moderada</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Abdutora máquina</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Abductor/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Thigh_Abductor/0.jpg" alt="Abdutora" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Rosca halter -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">💪</div>
-      <div class="ex-info"><div class="ex-name">Rosca halter</div><div class="ex-tags"><span class="tag ts">Bíceps</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">15</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Leve</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Rosca direta</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Dumbbell_Bicep_Curl/0.jpg" alt="Rosca halter" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Tríceps corda -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">🔙</div>
-      <div class="ex-info"><div class="ex-name">Tríceps corda</div><div class="ex-tags"><span class="tag ts">Tríceps</span><span class="tag tr">15 reps</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Reps</div><div class="wv">15</div></div><div class="wbox"><div class="wl">Carga</div><div class="wv">Leve</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Tríceps corda</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Triceps_Pushdown/0.jpg" alt="Tríceps corda" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Caminhada -->
-  <div class="ex-card">
-    <div class="ex-head" onclick="toggleEx(this.parentElement)">
-      <div class="ex-num">🚶</div>
-      <div class="ex-info"><div class="ex-name">Caminhada</div><div class="ex-tags"><span class="tag ts">Cardio</span><span class="tag tr">2 min</span></div></div>
-      <div class="ex-arr">›</div>
-    </div>
-    <div class="ex-body">
-      <div class="wgrid"><div class="wbox ideal"><div class="wl">Duração</div><div class="wv">2 min</div></div><div class="wbox"><div class="wl">Ritmo</div><div class="wv">Leve</div></div></div>
-      <div class="gif-btn" onclick="toggleGif(this)"><div class="gi">🎬</div><div><div class="gt">Ver execução</div><div class="gs">Animação · Caminhada</div></div><div class="ga">▾</div></div>
-      <div class="gif-wrap" data-src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg">
-        <img src="https://raw.githubusercontent.com/yuhonas/free-exercise-db/main/exercises/Romanian_Deadlift/0.jpg" alt="Caminhada" loading="lazy">
-        <div class="gif-credit">free-exercise-db · Public Domain</div>
-      </div>
-    </div>
-  </div>
-
-  <div class="tip" style="margin-top:16px"><strong>Dica:</strong> Não precisa ser intenso. O objetivo é manter o corpo ativo e aumentar o gasto calórico semanal.</div>
-</div>
-
-<!-- REGRAS -->
-<div class="tab-content" id="tab-regras">
-  <div class="section-title">Regras <span class="accent">&amp; Guia</span></div>
-  <div class="section-sub">Tudo que você precisa saber</div>
-  <div class="card"><h3>📊 Escala de esforço</h3><div class="row"><div class="icon-box y">💡</div><div class="row-text">Termine quase todas as séries sentindo que conseguiria fazer <strong>mais 1 ou 2 repetições</strong>. Não vai até a falha.</div></div></div>
-  <div class="card"><h3>📈 Progressão de carga</h3>
-    <div class="row"><div class="icon-box g">✅</div><div class="row-text">Todas as séries no topo das reps com boa execução → <strong>aumente a carga</strong> no próximo treino.</div></div>
-    <div class="row"><div class="icon-box o">⚠️</div><div class="row-text">Execução quebrando → <strong>use a carga de progressão</strong>.</div></div>
-  </div>
-  <div class="card"><h3>⏱ Descanso</h3>
-    <div class="row"><div class="icon-box b">🏋️</div><div class="row-text"><strong>Exercícios grandes:</strong> 90 segundos</div></div>
-    <div class="row"><div class="icon-box b">🦾</div><div class="row-text"><strong>Exercícios isolados:</strong> 45–60 segundos</div></div>
-  </div>
-  <div class="divider"></div>
-  <div class="section-title" style="font-size:22px;margin-bottom:12px">🦵 Atenção ao <span style="color:var(--accent2)">Joelho</span></div>
-  <div class="knee-card"><h3>✗ Evite</h3><ul class="klist avoid"><li>Corrida forte</li><li>Saltos</li><li>Agachamento profundo pesado</li><li>HIIT agressivo</li></ul></div>
-  <div class="card" style="border-color:rgba(34,197,94,.25)"><h3 style="color:var(--green)">✓ Priorize</h3><ul class="klist good"><li>Fortalecimento gradual</li><li>Perda de peso</li><li>Bicicleta ergométrica</li><li>Execução controlada</li></ul></div>
-  <div class="tip"><strong>Boa notícia:</strong> A perda de gordura vai melhorar MUITO sua dor no joelho ao longo do tempo.</div>
-  <div class="divider"></div>
-  <div class="section-title" style="font-size:22px;margin-bottom:4px">🚴 Meta de <span class="accent">Cardio</span></div>
-  <div class="section-sub">Semanal</div>
-  <div class="ogrid">
-    <div class="ocard"><div class="ol">Meta mínima</div><div class="ov" style="color:var(--accent)">150</div><div class="os">min/semana</div></div>
-    <div class="ocard"><div class="ol">Meta ideal</div><div class="ov" style="color:var(--green)">300</div><div class="os">min/semana</div></div>
-  </div>
-  <div class="tip"><strong>Regra de ouro:</strong> Não precisa ser intenso. Consistência ganha sempre.</div>
-</div>
-
-</div>
-<div class="bottom-fade"></div>
-
-<script>
-function tab(id, btn) {
-  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  btn.classList.add('active');
+// Toda chamada ao backend passa por aqui — garante que o cookie de
+// sessão (login de verdade) sempre vá junto, mesmo entre domínios
+// diferentes (GitHub Pages -> PythonAnywhere). Sem isso, o navegador
+// não manda o cookie, e a autenticação real nunca chega a funcionar.
+function apiFetch(url, opcoes = {}) {
+  const sessaoToken = localStorage.getItem('discoteca_session_token');
+  const opcoesFinais = { ...opcoes };
+  opcoesFinais.headers = { ...(opcoes.headers || {}), 'X-Session-Token': sessaoToken || '' };
+  return fetch(url, opcoesFinais);
 }
 
-function toggleEx(card) { card.classList.toggle('open'); }
-
-function toggleGif(btn) {
-  const wrap = btn.nextElementSibling;
-  wrap.classList.toggle('open');
-  btn.classList.toggle('open');
+// Capas: pedidas só quando o disco chega perto da tela, nesta ordem:
+//  1) repositório compartilhado (servidor responde na hora, sem Discogs);
+//  2) Last.fm direto do navegador (sem fila, várias ao mesmo tempo);
+//  3) Discogs pelo servidor — fila de 1 consulta a cada 2,5s pro app
+//     inteiro, então fica só pro que os dois primeiros não acharem.
+// Antes era Discogs primeiro: numa conta nova cada capa esperava a fila.
+// Mesmo disco em dois lugares da página = uma busca só.
+const _filaRapida = { ativos: 0, max: 4, espera: [] };   // repositório
+const _filaLenta = { ativos: 0, max: 2, espera: [] };    // Discogs
+function _quandoVisivel(el) {
+  return new Promise(res => {
+    if (!el || !('IntersectionObserver' in window)) return res();
+    const io = new IntersectionObserver(ents => {
+      if (ents.some(e => e.isIntersecting)) { io.disconnect(); res(); }
+    }, { rootMargin: '400px 0px' });
+    io.observe(el);
+  });
 }
-</script>
+function _vaga(fila) {
+  return new Promise(res => {
+    if (fila.ativos < fila.max) { fila.ativos++; res(); }
+    else fila.espera.push(res);
+  });
+}
+function _libera(fila) {
+  const prox = fila.espera.shift();
+  if (prox) prox(); else fila.ativos--;
+}
+async function _naFila(fila, fn) {
+  await _vaga(fila);
+  try { return await fn(); } finally { _libera(fila); }
+}
+async function _capaLastfm(artista, album) {
+  const _n = s => (s || '').replace(/[\u2010-\u2015\u2212]/g, '-').replace(/[\u2018\u2019\u201A\u2032]/g, "'").replace(/[\u201C\u201D\u201E\u2033]/g, '"').replace(/\u2026/g, '...').replace(/\u00A0/g, ' ');
+  artista = _n(artista); album = _n(album);
+  if (!artista || !album) return null;
+  try {
+    const r = await fetch(`https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=b25b959554ed76058ac220b7b2e0a026&artist=${encodeURIComponent(artista)}&album=${encodeURIComponent(album)}&format=json`);
+    const d = await r.json();
+    const img = d && d.album && Array.isArray(d.album.image) ? d.album.image.find(i => i.size === 'extralarge') : null;
+    return img && img['#text'] ? img['#text'] : null;
+  } catch { return null; }
+}
+const _capasPedidas = new Map();
+async function pedirCapa(el, url) {
+  await _quandoVisivel(el);
+  if (!_capasPedidas.has(url)) {
+    _capasPedidas.set(url, (async () => {
+      const q = new URL(url, location.href).searchParams;
+      let respostaServidorAntigo = null;
+      try {
+        const d = await _naFila(_filaRapida, async () => (await apiFetch(url + '&so_repositorio=1')).json());
+        if (d && d.sucesso && d.capa_url) return d;
+        if (d && !('repositorio' in d)) respostaServidorAntigo = d;   // servidor sem o app.py novo: já fez a busca completa
+      } catch (e) { /* segue pro Last.fm */ }
+      const lf = await _capaLastfm(q.get('artista'), q.get('album'));
+      if (lf) return { sucesso: true, capa_url: lf };
+      if (respostaServidorAntigo) return respostaServidorAntigo;      // não repete a busca no Discogs
+      try {
+        return await _naFila(_filaLenta, async () => (await apiFetch(url)).json());
+      } catch (e) { _capasPedidas.delete(url); throw e; }            // falhou: deixa tentar de novo depois
+    })());
+  }
+  const dados = await _capasPedidas.get(url);
+  return { ok: true, json: async () => dados };
+}
+const DEV_MODE = false;
+const DEV_USER_ID = 1;
+const DEV_USER_NOME = 'Teste ID 1';
+
+let usuarioId = null;
+let confirmCallback = null;
+let dashColecao = [];
+let dashWishlist = [];
+
+// ================================================================
+// LOGIN
+// ================================================================
+function salvarSessao(userId, nome, token) {
+  localStorage.setItem('discoteca_user_id', userId);
+  localStorage.setItem('discoteca_user_nome', nome);
+  if (token) localStorage.setItem('discoteca_session_token', token);
+}
+function carregarSessao() {
+  const userId = localStorage.getItem('discoteca_user_id');
+  const nome = localStorage.getItem('discoteca_user_nome');
+  const token = localStorage.getItem('discoteca_session_token');
+  if (userId && nome && token) return { userId, nome, token };
+  return null;
+}
+function limparSessao() {
+  localStorage.removeItem('discoteca_user_id');
+  localStorage.removeItem('discoteca_user_nome');
+  localStorage.removeItem('discoteca_session_token');
+}
+function ativarTelaApp(nome) {
+  document.getElementById('loginScreen').style.display = 'none';
+  document.getElementById('appScreen').style.display = 'block';
+  document.getElementById('userNameDisplay').textContent = nome;
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  const btnLogin = document.getElementById('btnLogin');
+  if (btnLogin) {
+    btnLogin.addEventListener('click', function() {
+      const btn = this;
+      const error = document.getElementById('loginError');
+      btn.disabled = true;
+      if (error) error.style.display = 'none';
+      apiFetch(API_URL + '/login')
+        .then(r => r.json())
+        .then(d => {
+          if (d.auth_url) window.location.href = d.auth_url;
+          else throw new Error('URL não recebida');
+        })
+        .catch(() => {
+          if (error) error.style.display = 'block';
+          btn.disabled = false;
+        });
+    });
+  }
+});
+
+// ================================================================
+// VERIFICAR SESSÃO
+// ================================================================
+function verificarSessao() {
+  if (DEV_MODE) {
+    usuarioId = DEV_USER_ID;
+    salvarSessao(DEV_USER_ID, DEV_USER_NOME);
+    ativarTelaApp(DEV_USER_NOME);
+    carregarDashboard();
+    return;
+  }
+  const params = new URLSearchParams(window.location.search);
+  const userId = params.get('user_id');
+  const nome = params.get('nome');
+  const token = params.get('token');
+  if (userId && nome && token) {
+    salvarSessao(userId, nome, token);
+    usuarioId = userId;
+    ativarTelaApp(nome);
+    window.history.replaceState({}, document.title, window.location.pathname);
+    carregarDashboard();
+    return;
+  }
+  const sessao = carregarSessao();
+  if (sessao) {
+    usuarioId = sessao.userId;
+    ativarTelaApp(sessao.nome);
+    carregarDashboard();
+    return;
+  }
+  apiFetch(API_URL + '/sessao')
+    .then(r => r.json())
+    .then(data => {
+      if (data.logado) {
+        usuarioId = data.usuario_id;
+        salvarSessao(data.usuario_id, data.nome || 'Usuário');
+        ativarTelaApp(data.nome || 'Usuário');
+        carregarDashboard();
+      }
+    })
+    .catch(() => {});
+}
+
+
+
+let lacunasAtuais = [];
+
+function corPrioridadeLacuna(prioridade) {
+  if (prioridade === 'completa') return 'complete';
+  return prioridade === 'alta' ? 'high' : (prioridade === 'media' ? 'medium' : 'low');
+}
+function textoPrioridadeLacuna(prioridade) {
+  if (prioridade === 'completa') return 'Completo';
+  return prioridade === 'alta' ? 'Prioridade' : (prioridade === 'media' ? 'Média' : 'Baixa');
+}
+
+function renderCardLacuna(a, indice) {
+  const pct = Math.round((a.possuidos / a.total) * 100);
+  const corClasse = corPrioridadeLacuna(a.prioridade);
+  const faltandoAgora = a.albuns.filter(x => x.status === 'faltando').length;
+  const textoFaltando = faltandoAgora === 0
+    ? `<span class="complete" id="lacuna-faltando-${indice}">0 faltando</span>`
+    : `<span class="missing" id="lacuna-faltando-${indice}">${faltandoAgora} faltando</span>`;
+  return `
+    <div class="dash-gap-card dash-gap-card-clicavel" role="button" tabindex="0"
+         onclick="abrirModalLacunas(${indice})"
+         onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();abrirModalLacunas(${indice});}"
+         aria-label="Ver álbuns faltando de ${escapeHtml(a.artista)}">
+      <button type="button" class="gap-remove-btn" title="Remover desta seção" aria-label="Remover ${escapeHtml(a.artista)} desta seção"
+              onclick="event.stopPropagation(); ocultarArtistaLacuna('${escapeHtml(a.artista)}', this)">
+        <svg viewBox="0 0 24 24" width="12" height="12" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+      <div class="artist">
+        <span class="name-wrap"><span class="icon"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg></span> ${escapeHtml(a.artista)}</span>
+        <span class="chevron"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.5"><polyline points="9 18 15 12 9 6"/></svg></span>
+      </div>
+      <div class="count-row">
+        <span class="owned">${a.possuidos} / ${a.total} mais populares</span>
+        ${textoFaltando}
+      </div>
+      <div class="track"><div class="fill ${corClasse}" style="width:${pct}%;"></div></div>
+      <div class="bottom">
+        <span class="badge ${corClasse}">${textoPrioridadeLacuna(a.prioridade)}</span>
+      </div>
+    </div>
+  `;
+}
+
+function buscarLacunasColecao() {
+  const el = document.getElementById('dashLacunas');
+  if (!el) return;
+  el.innerHTML = `<div class="dash-placeholder-note">Analisando lacunas...</div>`;
+  apiFetch(API_URL + '/lacunas_colecao?user_id=' + usuarioId)
+    .then(r => r.json())
+    .then(d => {
+      if (!d.sucesso) {
+        el.innerHTML = `<div class="dash-placeholder-note">Não deu pra analisar lacunas agora. Tenta de novo mais tarde.</div>`;
+        return;
+      }
+      if (!Array.isArray(d.artistas) || d.artistas.length === 0) {
+        el.innerHTML = `<div class="dash-placeholder-note">Sua coleção está em dia por aqui. Não encontramos lacunas relevantes entre os artistas analisados.</div>`;
+        return;
+      }
+      lacunasAtuais = d.artistas; // cache — a modal reaproveita isso, sem buscar de novo ao clicar
+      el.innerHTML = `<div class="dash-gaps-grid">${d.artistas.map((a, i) => renderCardLacuna(a, i)).join('')}</div>`;
+    })
+    .catch(() => {
+      el.innerHTML = `<div class="dash-placeholder-note">Erro ao analisar lacunas. Tenta recarregar a página.</div>`;
+    });
+}
+
+function ocultarArtistaLacuna(artista, btnEl) {
+  btnEl.disabled = true;
+  apiFetch(API_URL + '/lacunas_colecao/ocultar?user_id=' + usuarioId, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ artista })
+  })
+    .then(r => r.json())
+    .then(d => {
+      if (d.sucesso) {
+        buscarLacunasColecao(); // recarrega — o backend já traz outro artista pra preencher a vaga
+      } else {
+        btnEl.disabled = false;
+      }
+    })
+    .catch(() => { btnEl.disabled = false; });
+}
+window.ocultarArtistaLacuna = ocultarArtistaLacuna;
+
+function iconeStatusAlbum(status) {
+  if (status === 'colecao') return '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#6b8c7a" stroke-width="1.5"><polyline points="20 6 9 17 4 12"/></svg>';
+  if (status === 'wishlist') return '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#c9a86b" stroke-width="1.5"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>';
+  return '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#4a4a4a" stroke-width="1.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+}
+
+function renderModalLacunasConteudo(indice) {
+  const a = lacunasAtuais[indice];
+  const el = document.getElementById('lacunasModalLista');
+  if (!a || !el) return;
+  document.getElementById('lacunasModalArtista').textContent = a.artista;
+  el.innerHTML = a.albuns.map((album, idxAlbum) => {
+    let acao;
+    if (album.status === 'colecao') {
+      acao = `<span style="font-size:10px; color:#6b8c7a; display:flex; align-items:center; gap:4px;">${iconeStatusAlbum('colecao')} Na coleção</span>`;
+    } else if (album.status === 'wishlist') {
+      acao = `<span style="font-size:10px; color:#c9a86b; display:flex; align-items:center; gap:4px;">${iconeStatusAlbum('wishlist')} Na Wishlist</span>`;
+    } else {
+      acao = `<button type="button" class="btn-outline-terracota" style="font-size:10.5px; padding:3px 10px;" id="lacuna-btn-add-${indice}-${idxAlbum}" onclick="adicionarLacunaWishlist(${indice}, ${idxAlbum}, this)"><svg viewBox="0 0 24 24" width="11" height="11" fill="none" stroke="currentColor" stroke-width="1.5"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg> Adicionar</button>`;
+    }
+    return `
+      <div class="dash-intel-card" style="display:flex; align-items:center; justify-content:space-between; gap:10px; padding:10px 12px;">
+        <div style="display:flex; align-items:center; gap:10px; min-width:0;">
+          ${album.status !== 'faltando' ? '' : iconeStatusAlbum('faltando')}
+          <span style="font-size:13px; font-weight:500; overflow:hidden; text-overflow:ellipsis; white-space:nowrap;">${escapeHtml(album.album)}</span>
+        </div>
+        <div id="lacuna-acao-${indice}-${idxAlbum}" style="flex-shrink:0;">${acao}</div>
+      </div>
+    `;
+  }).join('');
+}
+
+function abrirModalLacunas(indice) {
+  renderModalLacunasConteudo(indice);
+  const modal = document.getElementById('modalLacunas');
+  modal.dataset.indiceAtual = indice;
+  modal.classList.add('open');
+}
+window.abrirModalLacunas = abrirModalLacunas;
+
+function fecharModalLacunas() {
+  document.getElementById('modalLacunas').classList.remove('open');
+}
+
+function adicionarLacunaWishlist(indice, idxAlbum, btnEl) {
+  const a = lacunasAtuais[indice];
+  const album = a.albuns[idxAlbum];
+  if (!album || album.status !== 'faltando') return;
+
+  btnEl.disabled = true;
+  btnEl.textContent = 'Adicionando...';
+
+  apiFetch(API_URL + '/adicionar_recomendacao?user_id=' + usuarioId, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ artista: a.artista, album: album.album, tier: 'B', notas: 'Álbum popular do artista, ainda fora da coleção' })
+  })
+    .then(r => r.json())
+    .then(d => {
+      if (!d.sucesso) {
+        btnEl.disabled = false;
+        btnEl.textContent = 'Adicionar';
+        return;
+      }
+      // Atualiza estado sem precisar recarregar nada
+      album.status = 'wishlist';
+      const acaoEl = document.getElementById(`lacuna-acao-${indice}-${idxAlbum}`);
+      if (acaoEl) acaoEl.innerHTML = `<span style="font-size:10px; color:#c9a86b; display:flex; align-items:center; gap:4px;">${iconeStatusAlbum('wishlist')} Na Wishlist</span>`;
+
+      const faltandoAgora = a.albuns.filter(x => x.status === 'faltando').length;
+      const badgeFaltando = document.getElementById(`lacuna-faltando-${indice}`);
+      if (badgeFaltando) badgeFaltando.textContent = `${faltandoAgora} faltando`;
+    })
+    .catch(() => {
+      btnEl.disabled = false;
+      btnEl.textContent = 'Adicionar';
+    });
+}
+window.adicionarLacunaWishlist = adicionarLacunaWishlist;
+
+document.addEventListener('DOMContentLoaded', function() {
+  const modalLacunas = document.getElementById('modalLacunas');
+  const btnFecharLacunas = document.getElementById('btnFecharLacunas');
+  if (btnFecharLacunas) btnFecharLacunas.addEventListener('click', fecharModalLacunas);
+  if (modalLacunas) modalLacunas.addEventListener('click', function(e) { if (e.target === this) fecharModalLacunas(); });
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape' && modalLacunas && modalLacunas.classList.contains('open')) fecharModalLacunas();
+  });
+});
+
+function carregarDashboard() {
+  Promise.all([
+    apiFetch(API_URL + '/colecao?user_id=' + usuarioId).then(r => r.json()),
+    apiFetch(API_URL + '/recomendacoes?user_id=' + usuarioId).then(r => r.json()),
+    apiFetch(API_URL + '/estatisticas_colecao?user_id=' + usuarioId).then(r => r.json()),
+    apiFetch(API_URL + '/perfil/' + usuarioId).then(r => r.json())
+  ]).then(([colecao, wishlist, stats, perfil]) => {
+    dashColecao = Array.isArray(colecao) ? colecao : [];
+    dashWishlist = Array.isArray(wishlist) ? wishlist : [];
+    renderDashboard(
+      dashColecao,
+      dashWishlist,
+      stats && !stats.erro ? stats : {},
+      perfil && !perfil.erro ? perfil : {}
+    );
+  }).catch(() => {
+    document.getElementById('dashContent').innerHTML =
+      '<div style="opacity:0.5; font-size:13px;">Não consegui carregar o dashboard. Tenta recarregar a página.</div>';
+  });
+}
+
+function corTier(tier) {
+  return { S: 'var(--s-color)', A: 'var(--a-color)', B: 'var(--b-color)', C: 'var(--c-color)' }[tier] || 'var(--c-color)';
+}
+
+// Last.fm como último recurso, igual às outras páginas (Discogs é a fonte
+// principal, mas o Dashboard não tinha rede de segurança nenhuma até agora).
+const LASTFM_KEY = 'b25b959554ed76058ac220b7b2e0a026';
+async function getCoverUrlLastfm(artist, album) {
+  const _n = s => (s || '').replace(/[\u2010-\u2015\u2212]/g, '-').replace(/[\u2018\u2019\u201A\u2032]/g, "'").replace(/[\u201C\u201D\u201E\u2033]/g, '"').replace(/\u2026/g, '...').replace(/\u00A0/g, ' '); artist = _n(artist); album = _n(album);   // travessão/aspas tipográficas -> ASCII (ex.: 2005–2013 vs 2005-2013)
+  if (!artist || !album) return null;
+  try {
+    const url = `https://ws.audioscrobbler.com/2.0/?method=album.getinfo&api_key=${LASTFM_KEY}&artist=${encodeURIComponent(artist)}&album=${encodeURIComponent(album)}&format=json`;
+    const res = await fetch(url);
+    const data = await res.json();
+    if (data.album && data.album.image) {
+      const img = data.album.image.find(i => i.size === 'extralarge');
+      return img && img['#text'] ? img['#text'] : null;
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
+// O dashboard só mostra ~7 itens no máximo (hero + 3 compras + 3 wishlist),
+// então buscar a capa que ainda não veio salva é seguro aqui — diferente
+// da geração em massa de recomendações, que evita isso de propósito.
+function carregarCapasFaltantesDashboard() {
+  // Cartas do deck e a lista "Próximas compras" mostram os MESMOS discos:
+  // agrupa por disco e faz UM pedido por disco (antes eram 2, e cada um
+  // entrava na fila do limitador do Discogs). A capa achada vai pra todas
+  // as imagens do mesmo disco e é salva uma vez só.
+  const grupos = new Map();
+  document.querySelectorAll('.dash-feature .cover[data-artista], .dash-track .thumb[data-artista], .dash-wishlist-item .cover[data-artista]').forEach(el => {
+    if (el.dataset.hasCapa || !el.dataset.artista || !el.dataset.album) return;
+    const k = (el.dataset.artista + '|' + el.dataset.album).toLowerCase();
+    if (!grupos.has(k)) grupos.set(k, []);
+    grupos.get(k).push(el);
+  });
+  grupos.forEach(elementos => {
+    const el = elementos[0];
+    const artista = el.dataset.artista;
+    const album = el.dataset.album;
+    const id = el.dataset.id;
+    const tipo = el.dataset.tipo; // 'recomendacao' — tudo que aparece aqui vem da wishlist
+
+    function salvarCapaEncontrada(url) {
+      // Grava no banco pra nunca mais precisar buscar de novo — evita
+      // a lentidão de buscar ao vivo toda vez que o Dashboard carrega.
+      if (!id || tipo !== 'recomendacao') return;
+      apiFetch(API_URL + `/recomendacoes/${id}/atualizar_capa?user_id=${usuarioId}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ capa_url: url })
+      }).catch(() => {});
+    }
+
+    function aplicar(url, encontradaAgora) {
+      elementos.forEach(alvo => {
+        alvo.style.backgroundImage = `url('${url}')`;
+        alvo.style.backgroundSize = 'cover';
+        alvo.style.backgroundPosition = 'center';
+        const icone = alvo.querySelector('.fallback-icon');
+        if (icone) icone.style.display = 'none';
+        else alvo.textContent = '';
+      });
+      if (encontradaAgora) salvarCapaEncontrada(url);
+    }
+
+    pedirCapa(el, API_URL + `/buscar_capa?artista=${encodeURIComponent(artista)}&album=${encodeURIComponent(album)}`)
+      .then(r => r.json())
+      .then(d => {
+        if (d.sucesso && d.capa_url) {
+          aplicar(d.capa_url, true);
+        } else {
+          console.warn('[Dashboard] Discogs sem capa para', artista, '-', album, '— tentando Last.fm');
+          getCoverUrlLastfm(artista, album).then(url => {
+            if (url) aplicar(url, true);
+            else console.warn('[Dashboard] Last.fm também sem capa para', artista, '-', album);
+          });
+        }
+      })
+      .catch(err => {
+        console.warn('[Dashboard] /buscar_capa falhou para', artista, '-', album, err, '— tentando Last.fm');
+        getCoverUrlLastfm(artista, album).then(url => { if (url) aplicar(url, true); });
+      });
+  });
+}
+
+function escapeHtml(texto) {
+  if (texto === null || texto === undefined) return '';
+  return String(texto)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+}
+
+function renderDashboard(colecao, wishlist, stats, perfil) {
+  const avatarEl = document.getElementById('userAvatar');
+  const nomeExibicao = perfil.nome_exibicao || perfil.nome || DEV_USER_NOME;
+  document.getElementById('userNameDisplay').textContent = nomeExibicao;
+  if (perfil.foto_url) {
+    avatarEl.innerHTML = `<img src="${perfil.foto_url}" alt="${nomeExibicao}">`;
+  } else {
+    avatarEl.textContent = nomeExibicao.charAt(0).toUpperCase();
+  }
+
+  const badge = document.getElementById('navWishlistCount');
+  if (wishlist.length > 0) {
+    badge.textContent = wishlist.length;
+    badge.style.display = 'flex';
+  }
+
+  const artistasUnicos = new Set(colecao.map(d => d.artista).filter(Boolean));
+  const hero = wishlist[0]; // já vem ordenado S <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em;display:inline-block;flex-shrink:0;"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg> C do back-end
+
+  let html = '';
+  const primeiroNome = (nomeExibicao || '').split(' ')[0] || '';
+  const totalDiscos = stats.total_discos || colecao.length;
+  const svgSeta = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>';
+  const svgDisco = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="3"/></svg>';
+
+  // ===== CABEÇALHO + DESTAQUE (layout Musadio: texto à esquerda, card empilhado à direita) =====
+  const formatosTag = [
+    { valor: stats.lps || 0, label: 'Vinil', href: 'colecao.html?formato=vinil' },
+    { valor: stats.cds || 0, label: 'CD', href: 'colecao.html?formato=cd' },
+    { valor: stats.cassetes || 0, label: 'Cassete', href: 'colecao.html?formato=cassete' },
+    { valor: stats.dvd_bluray || 0, label: 'DVD/Blu-ray', href: 'colecao.html?formato=dvd_bluray' }
+  ].filter(s => s.valor > 0);
+
+  html += `<div class="dash-head">
+    <div class="dash-head-text">
+      <div class="dash-eyebrow">Bem-vindo de volta${primeiroNome ? ', ' + escapeHtml(primeiroNome) : ''}</div>
+      <h1 class="dash-title">Sua coleção <span class="accent">está esperando.</span></h1>
+      <p class="dash-lede">${totalDiscos} ${totalDiscos === 1 ? 'disco' : 'discos'}, ${artistasUnicos.size} ${artistasUnicos.size === 1 ? 'artista' : 'artistas'} e ${wishlist.length} na wishlist.</p>
+      <div class="dash-tags">
+        <a href="colecao.html" class="dash-tag on">Tudo</a>
+        ${formatosTag.map(f => `<a href="${f.href}" class="dash-tag">${f.label}</a>`).join('')}
+      </div>
+    </div>`;
+
+  const deckItens = wishlist.slice(0, 5);
+  if (hero) {
+    const capaHero = hero.capa_url ? ` style="background-image:url('${escapeHtml(hero.capa_url)}');"` : '';
+    html += `
+    <div class="dash-feature">
+      <div class="dash-shortcuts" aria-label="Atalhos">
+        <a href="colecao.html" title="Coleção" aria-label="Coleção"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></a>
+        <a href="wishlist.html" title="Wishlist" aria-label="Wishlist"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26"/></svg></a>
+        <a href="audicoes.html" title="Audições" aria-label="Audições"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg></a>
+      </div>
+      <div class="dash-deck-wrap">
+      <div class="dash-deck" id="dashDeck" tabindex="0" role="group" aria-roledescription="carrossel" aria-label="Próximas compras — toque na carta para ver a próxima">
+        ${deckItens.map((it, k) => {
+          const capa = it.capa_url ? ` style="background-image:url('${escapeHtml(it.capa_url)}');"` : '';
+          return `<div class="dash-card dash-stack-top" data-pos="${k}" aria-hidden="${k === 0 ? 'false' : 'true'}">
+            <span class="cover" id="${k === 0 ? 'dashHeroCover' : 'dashDeckCover-' + k}" data-artista="${escapeHtml(it.artista || '')}" data-album="${escapeHtml(it.album || '')}" data-id="${it.id || ''}" data-tipo="recomendacao"${it.capa_url ? ' data-has-capa="1"' : ''}${capa}>${it.capa_url ? '' : `<span class="fallback-icon">${svgDisco}</span>`}</span>
+            <span class="dash-stack-info">
+              <span class="dash-stack-tag" style="color:${corTier(it.tier)};border-color:${corTier(it.tier)};">Próxima compra · Tier ${escapeHtml(it.tier)}</span>
+              <span class="t">${escapeHtml(it.album) || 'Álbum'}</span>
+              <span class="artist">${escapeHtml(it.artista) || 'Artista'}</span>
+              <span class="desc">${escapeHtml(it.nota || it.estrategia) || 'Complementa bem sua coleção atual.'}</span>
+            </span>
+            <a href="wishlist.html" class="dash-stack-go" tabindex="${k === 0 ? '0' : '-1'}" aria-label="Ver ${escapeHtml(it.album || 'álbum')} na Wishlist">${svgSeta}</a>
+          </div>`;
+        }).join('')}
+      </div>
+      <div class="sr-only" id="dashDeckStatus" aria-live="polite"></div>
+      ${deckItens.length > 1 ? `<div class="dash-deck-dots" role="tablist" aria-label="Cartas">${deckItens.map((it, k) => `<button type="button" class="${k === 0 ? 'on' : ''}" data-ir="${k}" aria-label="Carta ${k + 1} de ${deckItens.length}: ${escapeHtml(it.album || '')}"></button>`).join('')}</div>` : ''}
+      </div>
+    </div>`;
+  } else {
+    html += `
+    <div class="dash-feature dash-feature-vazio">
+      <div class="dash-stack-top">
+        <div class="dash-stack-info">
+          <h2>Nada na wishlist ainda</h2>
+          <div class="desc">Importe suas playlists para gerar recomendações.</div>
+          <a href="importar.html" class="btn">Ir para Importar ${svgSeta}</a>
+        </div>
+      </div>
+    </div>`;
+  }
+  html += `</div>`;
+
+  // ===== BARRA DE NÚMEROS =====
+  html += `<div class="dash-stats">`;
+  html += `<a href="colecao.html" class="dash-stat-item"><div class="number">${totalDiscos}</div><div class="label">Discos</div></a>`;
+  formatosTag.forEach(s => {
+    html += `<a href="${s.href}" class="dash-stat-item"><div class="number">${s.valor}</div><div class="label">${s.label === 'CD' ? 'CDs' : s.label}</div></a>`;
+  });
+  html += `<a href="estatisticas.html" class="dash-stat-item"><div class="number">${artistasUnicos.size}</div><div class="label">Artistas</div></a>`;
+  html += `<a href="wishlist.html" class="dash-stat-item"><div class="number">${wishlist.length}</div><div class="label">Wishlist</div></a>`;
+  html += `</div>`;
+
+  // ===== PRÓXIMAS COMPRAS (lista numerada, como a lista de faixas do Musadio) =====
+  html += `<section class="dash-sec"><div class="dash-section-title">Próximas compras <a href="wishlist.html" class="see-all">ver wishlist completa</a></div>`;
+  if (wishlist.length > 0) {
+    html += `<div class="dash-tracklist">`;
+    wishlist.slice(0, 5).forEach((item, idx) => {
+      const thumbStyle = item.capa_url ? ` style="background-image:url('${escapeHtml(item.capa_url)}');"` : '';
+      html += `
+        <a href="wishlist.html" class="dash-track">
+          <span class="n">${String(idx + 1).padStart(2, '0')}</span>
+          <span class="thumb" id="dashPurchase-${idx}" data-artista="${escapeHtml(item.artista || '')}" data-album="${escapeHtml(item.album || '')}" data-id="${item.id || ''}" data-tipo="recomendacao"${item.capa_url ? ' data-has-capa="1"' : ''}${thumbStyle}>${item.capa_url ? '' : `<span class="fallback-icon">${svgDisco}</span>`}</span>
+          <span class="info"><span class="title">${escapeHtml(item.album) || 'Álbum'}</span><span class="artist">${escapeHtml(item.artista) || 'Artista'}</span></span>
+          <span class="tier" style="color:${corTier(item.tier)};border-color:${corTier(item.tier)};">${escapeHtml(item.tier)}</span>
+          <span class="go" aria-hidden="true">${svgSeta}</span>
+        </a>`;
+    });
+    html += `</div>`;
+  } else {
+    html += `<div class="dash-placeholder-note">Nada na wishlist ainda — vá em Importar para gerar recomendações.</div>`;
+  }
+  html += `</section>`;
+
+  html += `
+    <section class="dash-sec">
+      <div class="dash-opp-header">
+        <div class="left">
+          <h2><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/><line x1="12" y1="22.08" x2="12" y2="12"/></svg> Lacunas da coleção</h2>
+          <div class="sub">Dos 5 álbuns mais populares de cada artista, veja o que ainda falta na sua coleção.</div>
+        </div>
+      </div>
+      <div id="dashLacunas"></div>
+    </section>`;
+
+  // ===== DESTAQUES + WISHLIST =====
+  html += `<section class="dash-sec">`;
+  html += `<div class="dash-section-title">Destaques da coleção</div><div class="dash-insights-grid">`;
+  if (stats.genero_predominante) {
+    html += `
+      <div class="dash-insight-card">
+        <div class="stat"><span class="highlight">${stats.genero_predominante_pct}%</span> ${escapeHtml(stats.genero_predominante)}</div>
+        <div class="desc">seu gênero predominante</div>
+        <div class="bar"><div class="fill" style="width:${stats.genero_predominante_pct}%;"></div></div>
+      </div>`;
+  }
+  if (stats.formato_predominante) {
+    html += `
+      <div class="dash-insight-card">
+        <div class="stat"><span class="highlight">${stats.formato_predominante_pct}%</span> ${escapeHtml(stats.formato_predominante)}</div>
+        <div class="desc">seu formato favorito</div>
+        <div class="bar"><div class="fill" style="width:${stats.formato_predominante_pct}%;"></div></div>
+      </div>`;
+  }
+  if (stats.decadas && stats.decadas.length > 0) {
+    const topDecada = [...stats.decadas].sort((a, b) => b.contagem - a.contagem)[0];
+    const pct = Math.round((topDecada.contagem / (stats.total_discos || 1)) * 100);
+    html += `
+      <div class="dash-insight-card">
+        <div class="stat"><span class="highlight">${escapeHtml(topDecada.nome)}</span></div>
+        <div class="desc">década mais coletada · ${topDecada.contagem} discos</div>
+        <div class="bar"><div class="fill" style="width:${pct}%;"></div></div>
+      </div>`;
+  }
+  if (stats.valor_total) {
+    html += `
+      <div class="dash-insight-card">
+        <div class="stat"><span class="highlight">R$ ${escapeHtml(stats.valor_total)}</span></div>
+        <div class="desc">valor estimado da coleção</div>
+      </div>`;
+  }
+  html += `</div>`;
+  html += `</section>`;
+
+  // ===== ATIVIDADE RECENTE =====
+  const recentes = [...colecao]
+    .filter(d => d.data_adicao)
+    .sort((a, b) => (a.data_adicao < b.data_adicao ? 1 : -1))
+    .slice(0, 5);
+
+  html += `<section class="dash-sec"><div class="dash-section-title">Atividade recente</div><div id="dashAtividade">`;
+  if (recentes.length > 0) {
+    html += `<div class="dash-tracklist">` + recentes.map(item => `
+      <div class="dash-track dash-activity-item">
+        <span class="icon"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg></span>
+        <span class="info"><span class="title">${escapeHtml(item.album) || 'Álbum'}</span><span class="artist">${escapeHtml(item.artista) || 'Artista'} · adicionado à coleção</span></span>
+        <span class="time">${escapeHtml(item.data_adicao)}</span>
+      </div>`).join('') + `</div>`;
+  } else {
+    html += `<div class="dash-placeholder-note">Nenhuma atividade ainda.</div>`;
+  }
+  html += `</div></section>`;
+
+  // ===== CHAMADA PRO RADAR MUSICAL (página que já existe) =====
+  html += `
+    <section class="dash-cta">
+      <div>
+        <h3>Entenda por que cada disco aparece pra você.</h3>
+        <p>O Radar Musical mostra os números reais por trás de cada recomendação.</p>
+      </div>
+      <a href="radar-musical.html" class="dash-cta-btn">Abrir Radar Musical ${svgSeta}</a>
+    </section>`;
+
+  document.getElementById('dashContent').innerHTML = html;
+  carregarCapasFaltantesDashboard();
+  iniciarDeck();
+
+  buscarLacunasColecao();
+}
+
+
+// ================================================================
+// DECK DE PRÓXIMAS COMPRAS — tocar/clicar passa pra próxima carta,
+// arrastar pro lado também; setas do teclado e pontinhos idem.
+// Só apresentação: usa a wishlist que o Dashboard já carregou.
+// ================================================================
+function iniciarDeck() {
+  const deck = document.getElementById('dashDeck');
+  if (!deck) return;
+  const cartas = [...deck.querySelectorAll('.dash-card')];
+  const pontos = [...document.querySelectorAll('.dash-deck-dots button')];
+  const n = cartas.length;
+  if (n === 0) return;
+  let atual = 0, animando = false;
+  const semMovimento = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  function posicionar() {
+    cartas.forEach((c, k) => {
+      const pos = (k - atual + n) % n;
+      c.dataset.pos = pos;
+      c.setAttribute('aria-hidden', pos === 0 ? 'false' : 'true');
+      const link = c.querySelector('.dash-stack-go');
+      if (link) link.tabIndex = pos === 0 ? 0 : -1;
+    });
+    pontos.forEach((b, k) => { b.classList.toggle('on', k === atual); b.setAttribute('aria-selected', k === atual ? 'true' : 'false'); });
+  }
+  const status = document.getElementById('dashDeckStatus');
+  function anunciar() {
+    const c = cartas[atual];
+    if (status && c) status.textContent = `Carta ${atual + 1} de ${n}: ${c.querySelector('.t').textContent} — ${c.querySelector('.artist').textContent}`;
+  }
+  let focoNaCarta = false;
+  function lembrarFoco() {
+    // anotado ANTES da troca: quando a carta vai pro fundo o navegador já
+    // tira o foco da seta sozinho, e depois não dá mais pra saber onde estava
+    const ativo = document.activeElement;
+    focoNaCarta = !!ativo && deck.contains(ativo) && ativo !== deck;
+  }
+  function manterFoco() {
+    if (focoNaCarta) deck.focus();   // volta pro deck em vez de se perder
+    focoNaCarta = false;
+  }
+  function ir(destino, direcao) {
+    if (n < 2 || animando || destino === atual) return;
+    const topo = cartas[atual];
+    lembrarFoco();
+    if (semMovimento) { atual = destino; posicionar(); manterFoco(); anunciar(); return; }
+    animando = true;
+    topo.classList.add(direcao < 0 ? 'sai-dir' : 'sai-esq');
+    setTimeout(() => {
+      topo.classList.add('sem-transicao');
+      topo.classList.remove('sai-esq', 'sai-dir');
+      atual = destino; posicionar(); manterFoco(); anunciar();
+      void topo.offsetWidth;            // aplica a nova posição antes de religar a transição
+      topo.classList.remove('sem-transicao');
+      animando = false;
+    }, 320);
+  }
+  const proxima = () => ir((atual + 1) % n, 1);
+  const anterior = () => ir((atual - 1 + n) % n, -1);
+
+  let inicioX = null, arrastou = false;
+  deck.addEventListener('pointerdown', e => { inicioX = e.clientX; arrastou = false; });
+  deck.addEventListener('pointerup', e => {
+    if (inicioX === null) return;
+    const dx = e.clientX - inicioX; inicioX = null;
+    if (Math.abs(dx) > 40) { arrastou = true; dx < 0 ? proxima() : anterior(); }
+  });
+  deck.addEventListener('click', e => {
+    if (e.target.closest('.dash-stack-go')) return;   // a seta leva pra Wishlist
+    if (arrastou) { arrastou = false; return; }
+    proxima();
+  });
+  deck.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight') { e.preventDefault(); proxima(); }
+    else if (e.key === 'ArrowLeft') { e.preventDefault(); anterior(); }
+  });
+  pontos.forEach(b => b.addEventListener('click', () => { const k = Number(b.dataset.ir); ir(k, k > atual ? 1 : -1); }));
+  posicionar();
+}
+window.iniciarDeck = iniciarDeck;
+
+document.addEventListener('DOMContentLoaded', function() {
+  verificarSessao();
+});
+  </script>
+  <!-- MODAL: Lacunas da coleção — mesmo padrão .modal-overlay/.modal-close já usado no resto do site -->
+  <div class="modal-overlay" id="modalLacunas">
+    <div class="modal" style="max-width:480px;">
+      <div class="modal-header">
+        <div>
+          <h2 id="lacunasModalArtista" style="font-size:20px;"></h2>
+          <div style="font-size:12px; opacity:0.4; margin-top:2px;">
+            Álbuns mais populares
+            <span style="display:block; font-size:10px; opacity:0.7; margin-top:2px;">Baseado nos 5 álbuns mais populares do artista no Last.fm</span>
+          </div>
+        </div>
+        <button class="modal-close" id="btnFecharLacunas"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg></button>
+      </div>
+      <hr style="border:none; border-top:1px solid var(--card-line); margin:12px 0 14px;" />
+      <div id="lacunasModalLista" style="display:flex; flex-direction:column; gap:6px;"></div>
+    </div>
+  </div>
+
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js').catch(() => {});
+      });
+    }
+  </script>
+  <script src="onboarding.js?v=1" data-auto="1"></script>
 </body>
 </html>
